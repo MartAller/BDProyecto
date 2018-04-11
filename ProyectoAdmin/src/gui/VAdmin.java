@@ -38,6 +38,13 @@ public class VAdmin extends javax.swing.JFrame {
         panelPrincipal = new javax.swing.JTabbedPane();
         panelCuenta = new javax.swing.JPanel();
         panelBonos = new javax.swing.JPanel();
+        buscaIdBono = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        buscaPalabrasClave = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaBonos = new javax.swing.JTable();
+        btnBuscarBono = new javax.swing.JButton();
         panelClases = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClases = new javax.swing.JTable();
@@ -74,15 +81,55 @@ public class VAdmin extends javax.swing.JFrame {
 
         panelPrincipal.addTab("Cuenta", panelCuenta);
 
+        jLabel3.setText("Id Bono");
+
+        jLabel4.setText("Palabras clave");
+
+        tablaBonos.setModel(new ModeloTablaBonos());
+        jScrollPane4.setViewportView(tablaBonos);
+
+        btnBuscarBono.setText("Buscar");
+        btnBuscarBono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarBonoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBonosLayout = new javax.swing.GroupLayout(panelBonos);
         panelBonos.setLayout(panelBonosLayout);
         panelBonosLayout.setHorizontalGroup(
             panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 716, Short.MAX_VALUE)
+            .addGroup(panelBonosLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buscaIdBono, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buscaPalabrasClave, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(199, 199, 199))
+            .addGroup(panelBonosLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBuscarBono)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBonosLayout.setVerticalGroup(
             panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 457, Short.MAX_VALUE)
+            .addGroup(panelBonosLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscaIdBono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(buscaPalabrasClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscarBono)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("Bonos", panelBonos);
@@ -299,6 +346,24 @@ public class VAdmin extends javax.swing.JFrame {
         fa.NuevoUsuario();
     }//GEN-LAST:event_btnAccederActionPerformed
 
+    private void btnBuscarBonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBonoActionPerformed
+        // TODO add your handling code here:
+        ModeloTablaBonos m;
+        
+        m = (ModeloTablaBonos) tablaBonos.getModel();/*ModeloTablaLibros extiende a AbstractTableModel*/
+
+        //Guardo en el objeto tabla los resultados obtenidos
+        m.setFilas(fa.consultarBonos((buscaIdBono.getText().isEmpty()) ? null : Integer.parseInt(buscaIdBono.getText()),
+                (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText()));
+        /*Si el campo id está vacío se pone a null*/
+
+        //Si la tabla obtenida tras la búsqueda tiene alguna fila:
+        if (m.getRowCount() > 0) {
+            tablaBonos.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
+            //btnAcceder.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnBuscarBonoActionPerformed
+
 
 
     public void actualizarUsuarios() {
@@ -321,17 +386,23 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JButton Nuevo;
     private javax.swing.JButton btnAcceder;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarBono;
     private javax.swing.JButton btnSalir;
     private javax.swing.JTextField buscaId;
+    private javax.swing.JTextField buscaIdBono;
     private javax.swing.JTextField buscaNombre;
+    private javax.swing.JTextField buscaPalabrasClave;
     private javax.swing.JComboBox comboTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel panelBonos;
     private javax.swing.JPanel panelClases;
     private javax.swing.JPanel panelCuenta;
@@ -339,6 +410,7 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel panelMantenimiento;
     private javax.swing.JTabbedPane panelPrincipal;
     private javax.swing.JPanel panelUsuarios;
+    private javax.swing.JTable tablaBonos;
     private javax.swing.JTable tablaClases;
     private javax.swing.JTable tablaUsuarios;
     // End of variables declaration//GEN-END:variables

@@ -4,6 +4,7 @@
  */
 package baseDatos;
 
+import aplicacion.Bono;
 import aplicacion.Clase;
 import aplicacion.Usuario;
 import java.io.FileInputStream;
@@ -79,9 +80,12 @@ public class FachadaBaseDatos {
     }
 /////////////CLASES//////////////////////
 
-    
-    public java.util.List<Clase> mostrarClases(String orden){
+    public java.util.List<Clase> mostrarClases(String orden) {
         return daoClases.mostrarClases(orden);
     }
 //////////////BONOS//////////////////////
+
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave) {
+        return daoBonos.consultarBonos(idBono, palabrasClave);
+    }
 }
