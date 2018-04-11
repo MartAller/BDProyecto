@@ -32,7 +32,7 @@ public class FachadaAplicacion {
     public static void main(String[] args) {
         FachadaAplicacion fa;
 
-        System.out.println("Hola");
+        System.out.println("Hola2222");
         fa = new FachadaAplicacion();
         fa.iniciaInterfazAdmin();
     }
