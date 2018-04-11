@@ -45,6 +45,7 @@ public class VAdmin extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaBonos = new javax.swing.JTable();
         btnBuscarBono = new javax.swing.JButton();
+        checkBonos = new javax.swing.JCheckBox();
         panelClases = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClases = new javax.swing.JTable();
@@ -95,6 +96,8 @@ public class VAdmin extends javax.swing.JFrame {
             }
         });
 
+        checkBonos.setText("Buscar sólo bonos NO caducados");
+
         javax.swing.GroupLayout panelBonosLayout = new javax.swing.GroupLayout(panelBonos);
         panelBonos.setLayout(panelBonosLayout);
         panelBonosLayout.setHorizontalGroup(
@@ -111,8 +114,11 @@ public class VAdmin extends javax.swing.JFrame {
                 .addGap(199, 199, 199))
             .addGroup(panelBonosLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnBuscarBono)
+                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelBonosLayout.createSequentialGroup()
+                        .addComponent(checkBonos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscarBono))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -128,7 +134,9 @@ public class VAdmin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBuscarBono)
+                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscarBono)
+                    .addComponent(checkBonos))
                 .addContainerGap(127, Short.MAX_VALUE))
         );
 
@@ -354,7 +362,7 @@ public class VAdmin extends javax.swing.JFrame {
 
         //Guardo en el objeto tabla los resultados obtenidos
         m.setFilas(fa.consultarBonos((buscaIdBono.getText().isEmpty()) ? null : Integer.parseInt(buscaIdBono.getText()),
-                (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText()));
+                (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText(), checkBonos.isSelected()));
         /*Si el campo id está vacío se pone a null*/
 
         //Si la tabla obtenida tras la búsqueda tiene alguna fila:
@@ -392,6 +400,7 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField buscaIdBono;
     private javax.swing.JTextField buscaNombre;
     private javax.swing.JTextField buscaPalabrasClave;
+    private javax.swing.JCheckBox checkBonos;
     private javax.swing.JComboBox comboTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

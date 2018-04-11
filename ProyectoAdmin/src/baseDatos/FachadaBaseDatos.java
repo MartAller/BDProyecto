@@ -85,7 +85,7 @@ public class FachadaBaseDatos {
     }
 //////////////BONOS//////////////////////
 
-    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave) {
-        return daoBonos.consultarBonos(idBono, palabrasClave);
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
+        return daoBonos.consultarBonos(idBono, palabrasClave, noCaducados);
     }
 }

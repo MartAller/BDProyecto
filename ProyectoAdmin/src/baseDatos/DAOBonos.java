@@ -22,7 +22,7 @@ public class DAOBonos extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
-    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave) {
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
         java.util.List<Bono> resultado = new java.util.ArrayList<Bono>();
 
         Bono bonoActual;
@@ -41,10 +41,19 @@ public class DAOBonos extends AbstractDAO {
             consulta = consulta + " and id_bono = ? ";
         }
 
+       
         if (palabrasClave != null) {
             consulta = consulta + "  and descripcion like ? ";
         }
+
         consulta += " GROUP BY b.id_bono, b.descripcion, b.precio";
+
+        /*Un bono está caducado si la fecha de su última clase es anterior a la 
+        fecha actual*/
+        if (noCaducados == true) {
+            consulta += " HAVING max(cb.fechaClase) > current_date";
+            
+        }
 
         try {
 
@@ -62,7 +71,7 @@ public class DAOBonos extends AbstractDAO {
             rsBonos = stmBonos.executeQuery();
             while (rsBonos.next()) {
                 bonoActual = new Bono(rsBonos.getInt("id_bono"), rsBonos.getString("descripcion"), rsBonos.getFloat("precio"),
-                                rsBonos.getString("fInicio"), rsBonos.getString("fFin"), rsBonos.getInt("nBonos"));
+                        rsBonos.getString("fInicio"), rsBonos.getString("fFin"), rsBonos.getInt("nBonos"));
                 resultado.add(bonoActual);
             }
 

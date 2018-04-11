@@ -29,8 +29,8 @@ public class GestionClasesBonos {//Controlador de clases y bonos
 
     /////////////CLASES/////////////////
     ///////////////BONOS////////////////////
-    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave) {
-        return fbd.consultarBonos(idBono, palabrasClave);
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
+        return fbd.consultarBonos(idBono, palabrasClave, noCaducados);
     }
 
 }
