@@ -22,7 +22,7 @@ public class DAOBonos extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
-    public java.util.List<Bono> consultarBonos(String idBono, String palabrasClave) {
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave) {
         java.util.List<Bono> resultado = new java.util.ArrayList<Bono>();
 
         Bono bonoActual;
@@ -32,26 +32,26 @@ public class DAOBonos extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "select id_bono, descripcion, precio"
-                + " from bono "
-                + "where true";
+        String consulta = "SELECT b.id_bono, b.descripcion, b.precio, min(cb.fechaClase) as fInicio, max(cb.fechaClase) as fFin, count(*) as nBonos "
+                + "FROM bono b JOIN clasesBono cb ON (b.id_bono = cb.bono) "
+                + "WHERE true ";
 
         //Si se ha introducido algún id o algún nombre los utilizo para las búsqueda
         if (idBono != null) {
-            consulta = consulta + " and id_usuario like ? ";
+            consulta = consulta + " and id_bono = ? ";
         }
 
         if (palabrasClave != null) {
-            consulta = consulta + "  and nombre like ? ";
+            consulta = consulta + "  and descripcion like ? ";
         }
-
+        consulta += " GROUP BY b.id_bono, b.descripcion, b.precio";
 
         try {
 
             stmBonos = con.prepareStatement(consulta);
 
             if (idBono != null) {
-                stmBonos.setString(1, "%" + idBono + "%");
+                stmBonos.setInt(1, idBono);
             }
             if (palabrasClave != null && idBono == null) {//Caso en el que el usuario introduce nombre pero no introduce id
                 stmBonos.setString(1, "%" + palabrasClave + "%");
@@ -61,7 +61,8 @@ public class DAOBonos extends AbstractDAO {
 
             rsBonos = stmBonos.executeQuery();
             while (rsBonos.next()) {
-                bonoActual = new Bono(rsBonos.getInt("id_bono"), rsBonos.getString("descripcion"), rsBonos.getFloat("precio"));
+                bonoActual = new Bono(rsBonos.getInt("id_bono"), rsBonos.getString("descripcion"), rsBonos.getFloat("precio"),
+                                rsBonos.getString("fInicio"), rsBonos.getString("fFin"), rsBonos.getInt("nBonos"));
                 resultado.add(bonoActual);
             }
 
