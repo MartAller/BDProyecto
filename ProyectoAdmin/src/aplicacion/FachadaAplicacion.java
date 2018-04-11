@@ -66,4 +66,8 @@ public class FachadaAplicacion {
     }
     
     /////////////BONOS//////////////////
+    
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave) {
+        return cc.consultarBonos(idBono, palabrasClave);
+    }
 }

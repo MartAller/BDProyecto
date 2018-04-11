@@ -21,10 +21,16 @@ public class GestionClasesBonos {//Controlador de clases y bonos
         this.fgui = fgui;
         this.fbd = fbd;
     }
-    
-    
-    public java.util.List<Clase> mostrarClases(String orden){
+
+    ////////////////USUARIOS//////////////////
+    public java.util.List<Clase> mostrarClases(String orden) {
         return fbd.mostrarClases(orden);
     }
-    
+
+    /////////////CLASES/////////////////
+    ///////////////BONOS////////////////////
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave) {
+        return fbd.consultarBonos(idBono, palabrasClave);
+    }
+
 }
