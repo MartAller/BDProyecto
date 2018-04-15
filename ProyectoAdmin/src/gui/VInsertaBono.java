@@ -192,10 +192,10 @@ public class VInsertaBono extends javax.swing.JDialog {
         String descripcion = insertaDescripcion.getText();
         
         aplicacion.Bono bono = new aplicacion.Bono(idBono, descripcion, 0, null, null, null);
+        fa.insertarBono(bono, clases);
     }//GEN-LAST:event_btnCrearBonoActionPerformed
 
     private void btnBonoAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBonoAtrasActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnBonoAtrasActionPerformed
 

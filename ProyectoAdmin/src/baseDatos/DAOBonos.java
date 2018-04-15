@@ -9,6 +9,7 @@ import aplicacion.TipoCategoria;
 import aplicacion.TipoPuesto;
 import aplicacion.TipoUsuario;
 import aplicacion.Bono;
+import aplicacion.Clase;
 import java.sql.*;
 
 /**
@@ -41,7 +42,6 @@ public class DAOBonos extends AbstractDAO {
             consulta = consulta + " and id_bono = ? ";
         }
 
-       
         if (palabrasClave != null) {
             consulta = consulta + "  and descripcion like ? ";
         }
@@ -49,7 +49,7 @@ public class DAOBonos extends AbstractDAO {
         consulta += " GROUP BY b.id_bono, b.descripcion, b.precio";
 
         /*Un bono está caducado si la fecha de su última clase es anterior a la 
-        fecha actual*/
+         fecha actual*/
         if (noCaducados == true) {
             consulta += " HAVING max(cb.fechaClase) > current_date";
         }
@@ -86,5 +86,59 @@ public class DAOBonos extends AbstractDAO {
             }
         }
         return resultado;
+    }
+
+    public void insertarBono(Bono bono, java.util.List<Clase> clases) {
+        java.util.List<Bono> resultado = new java.util.ArrayList<Bono>();
+
+        Bono bonoActual;
+        Connection con;
+        PreparedStatement stmBonos = null, stmClasesBono = null;
+
+        //Abro conexión
+        con = this.getConexion();
+        String consulta1 = "INSERT INTO bono VALUES(?,?,?)";
+        String consulta2 = "INSERT INTO clasesBono VALUES(?,?,?,?)";
+
+        try {
+            //Inserción del bono en la tabla Bono
+            stmBonos = con.prepareStatement(consulta1);
+            stmBonos.setInt(1, bono.getId_bono());
+            stmBonos.setString(2, bono.getDescripcion());
+            stmBonos.setFloat(3, bono.getPrecio());
+
+            stmBonos.executeUpdate();
+
+            //Inserción del bono en la tabla clasesBono (se inserta una nueva tupla por cada clase que tenga el bono)
+            try {
+                stmClasesBono = con.prepareStatement(consulta2);
+
+                for (Clase c : clases) {
+                    stmClasesBono.setInt(1, bono.getId_bono());
+                    stmClasesBono.setInt(2, c.getId_clase());
+                    stmClasesBono.setDate(3, new java.sql.Date(c.getFecha().getTime()));//Convierto java.util.Date en java.sql.Date
+                    stmClasesBono.setString(4, c.getHoraInicio());
+                    stmClasesBono.executeUpdate();
+                }
+            } catch (SQLException e2) {
+                System.out.println(e2.getMessage());
+                this.getFachadaAplicacion().muestraExcepcion(e2.getMessage());
+
+            } finally {
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmBonos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+
     }
 }

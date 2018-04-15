@@ -79,5 +79,9 @@ public class FachadaAplicacion {
     public void ventanaNuevoBono() {
         cc.ventanaNuevoBono();
     }
+    
+    public void insertarBono(Bono bono, java.util.List<Clase> clases){
+        cc.insertarBono(bono, clases);
+    }
 
 }

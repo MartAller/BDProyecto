@@ -41,5 +41,8 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     public void ventanaNuevoBono() {
         fgui.ventanaNuevoBono();
     }
+    public void insertarBono(Bono bono, java.util.List<Clase> clases){
+        fbd.insertarBono(bono, clases);
+    }
 
 }

@@ -93,4 +93,8 @@ public class FachadaBaseDatos {
         return daoBonos.consultarBonos(idBono, palabrasClave, noCaducados);
     }
 
+    public void insertarBono(Bono bono, java.util.List<Clase> clases) {
+        daoBonos.insertarBono(bono, clases);
+    }
+
 }
