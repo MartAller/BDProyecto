@@ -52,7 +52,6 @@ public class DAOBonos extends AbstractDAO {
         fecha actual*/
         if (noCaducados == true) {
             consulta += " HAVING max(cb.fechaClase) > current_date";
-            
         }
 
         try {

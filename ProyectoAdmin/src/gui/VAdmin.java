@@ -46,12 +46,12 @@ public class VAdmin extends javax.swing.JFrame {
         tablaBonos = new javax.swing.JTable();
         btnBuscarBono = new javax.swing.JButton();
         checkBonos = new javax.swing.JCheckBox();
+        btnNuevoBono = new javax.swing.JButton();
         panelClases = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClases = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        panelMantenimiento = new javax.swing.JPanel();
         panelFinanzas = new javax.swing.JPanel();
         panelUsuarios = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -98,6 +98,8 @@ public class VAdmin extends javax.swing.JFrame {
 
         checkBonos.setText("Buscar sólo bonos NO caducados");
 
+        btnNuevoBono.setText("Nuevo Bono");
+
         javax.swing.GroupLayout panelBonosLayout = new javax.swing.GroupLayout(panelBonos);
         panelBonos.setLayout(panelBonosLayout);
         panelBonosLayout.setHorizontalGroup(
@@ -113,13 +115,18 @@ public class VAdmin extends javax.swing.JFrame {
                 .addComponent(buscaPalabrasClave, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(199, 199, 199))
             .addGroup(panelBonosLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBonosLayout.createSequentialGroup()
-                        .addComponent(checkBonos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscarBono))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
+                        .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(panelBonosLayout.createSequentialGroup()
+                                .addComponent(checkBonos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscarBono))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelBonosLayout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(btnNuevoBono, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBonosLayout.setVerticalGroup(
@@ -137,7 +144,9 @@ public class VAdmin extends javax.swing.JFrame {
                 .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscarBono)
                     .addComponent(checkBonos))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(btnNuevoBono, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("Bonos", panelBonos);
@@ -178,19 +187,6 @@ public class VAdmin extends javax.swing.JFrame {
         );
 
         panelPrincipal.addTab("Clases", panelClases);
-
-        javax.swing.GroupLayout panelMantenimientoLayout = new javax.swing.GroupLayout(panelMantenimiento);
-        panelMantenimiento.setLayout(panelMantenimientoLayout);
-        panelMantenimientoLayout.setHorizontalGroup(
-            panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 716, Short.MAX_VALUE)
-        );
-        panelMantenimientoLayout.setVerticalGroup(
-            panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 457, Short.MAX_VALUE)
-        );
-
-        panelPrincipal.addTab("Mantenimiento", panelMantenimiento);
 
         javax.swing.GroupLayout panelFinanzasLayout = new javax.swing.GroupLayout(panelFinanzas);
         panelFinanzas.setLayout(panelFinanzasLayout);
@@ -325,6 +321,16 @@ public class VAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_NuevoActionPerformed
+
+    private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
+        // TODO add your handling code here:
+        fa.NuevoUsuario();
+    }//GEN-LAST:event_btnAccederActionPerformed
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         ModeloTablaUsuarios m;
@@ -333,42 +339,32 @@ public class VAdmin extends javax.swing.JFrame {
 
         //Guardo en el objeto tabla los resultados obtenidos
         m.setFilas(fa.consultarUsuarios((buscaId.getText().isEmpty()) ? null : buscaId.getText(),
-                (buscaNombre.getText().isEmpty()) ? null : buscaNombre.getText(), comboTipo.getSelectedItem().toString()));
-        /*Si el campo id está vacío se pone a null*/
+            (buscaNombre.getText().isEmpty()) ? null : buscaNombre.getText(), comboTipo.getSelectedItem().toString()));
+    /*Si el campo id está vacío se pone a null*/
 
-        //Si la tabla obtenida tras la búsqueda tiene alguna fila:
-        if (m.getRowCount() > 0) {
-            tablaUsuarios.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
-            btnAcceder.setEnabled(true);
+    //Si la tabla obtenida tras la búsqueda tiene alguna fila:
+    if (m.getRowCount() > 0) {
+        tablaUsuarios.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
+        btnAcceder.setEnabled(true);
         } else {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_NuevoActionPerformed
-
-    private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
-        // TODO add your handling code here:
-        fa.NuevoUsuario();
-    }//GEN-LAST:event_btnAccederActionPerformed
-
     private void btnBuscarBonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBonoActionPerformed
         // TODO add your handling code here:
         ModeloTablaBonos m;
-        
+
         m = (ModeloTablaBonos) tablaBonos.getModel();/*ModeloTablaLibros extiende a AbstractTableModel*/
 
         //Guardo en el objeto tabla los resultados obtenidos
         m.setFilas(fa.consultarBonos((buscaIdBono.getText().isEmpty()) ? null : Integer.parseInt(buscaIdBono.getText()),
-                (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText(), checkBonos.isSelected()));
-        /*Si el campo id está vacío se pone a null*/
+            (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText(), checkBonos.isSelected()));
+    /*Si el campo id está vacío se pone a null*/
 
-        //Si la tabla obtenida tras la búsqueda tiene alguna fila:
-        if (m.getRowCount() > 0) {
-            tablaBonos.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
-            //btnAcceder.setEnabled(true);
+    //Si la tabla obtenida tras la búsqueda tiene alguna fila:
+    if (m.getRowCount() > 0) {
+        tablaBonos.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
+        //btnAcceder.setEnabled(true);
         }
     }//GEN-LAST:event_btnBuscarBonoActionPerformed
 
@@ -395,6 +391,7 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnAcceder;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscarBono;
+    private javax.swing.JButton btnNuevoBono;
     private javax.swing.JButton btnSalir;
     private javax.swing.JTextField buscaId;
     private javax.swing.JTextField buscaIdBono;
@@ -416,7 +413,6 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel panelClases;
     private javax.swing.JPanel panelCuenta;
     private javax.swing.JPanel panelFinanzas;
-    private javax.swing.JPanel panelMantenimiento;
     private javax.swing.JTabbedPane panelPrincipal;
     private javax.swing.JPanel panelUsuarios;
     private javax.swing.JTable tablaBonos;
