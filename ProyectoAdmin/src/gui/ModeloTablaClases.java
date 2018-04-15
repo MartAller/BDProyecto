@@ -70,7 +70,7 @@ public class ModeloTablaClases extends AbstractTableModel{
                 clase = java.lang.Integer.class;
                 break;
             case 5:
-                clase = java.lang.Integer.class;
+                clase = java.lang.String.class;
                 break;
         }
         return clase;

@@ -99,6 +99,11 @@ public class VAdmin extends javax.swing.JFrame {
         checkBonos.setText("Buscar sólo bonos NO caducados");
 
         btnNuevoBono.setText("Nuevo Bono");
+        btnNuevoBono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoBonoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBonosLayout = new javax.swing.GroupLayout(panelBonos);
         panelBonos.setLayout(panelBonosLayout);
@@ -367,6 +372,11 @@ public class VAdmin extends javax.swing.JFrame {
         //btnAcceder.setEnabled(true);
         }
     }//GEN-LAST:event_btnBuscarBonoActionPerformed
+
+    private void btnNuevoBonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoBonoActionPerformed
+        // TODO add your handling code here:
+        fa.ventanaNuevoBono();
+    }//GEN-LAST:event_btnNuevoBonoActionPerformed
 
 
 

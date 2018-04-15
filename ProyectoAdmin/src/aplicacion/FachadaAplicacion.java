@@ -70,4 +70,7 @@ public class FachadaAplicacion {
     public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
         return cc.consultarBonos(idBono, palabrasClave, noCaducados);
     }
+    public void ventanaNuevoBono(){
+        cc.ventanaNuevoBono();
+    }
 }

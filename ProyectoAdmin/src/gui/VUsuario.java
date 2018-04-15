@@ -10,7 +10,7 @@ package gui;
  * @author alumnogreibd
  */
 public class VUsuario extends javax.swing.JDialog {
-    aplicacion.FachadaAplicacion fa;
+    private aplicacion.FachadaAplicacion fa;
     private VAdmin padre;
     /**
      * Creates new form VUsuario
@@ -90,7 +90,7 @@ public class VUsuario extends javax.swing.JDialog {
 
         puesto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Mantenimiento", "Profesor", "NInguno" }));
 
-        jLabel5.setText("Antiguedad");
+        jLabel5.setText("Antigüedad");
 
         jLabel6.setText("Categoría");
 
@@ -184,9 +184,8 @@ public class VUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                        .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
