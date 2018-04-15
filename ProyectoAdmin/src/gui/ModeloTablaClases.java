@@ -137,7 +137,21 @@ public class ModeloTablaClases extends AbstractTableModel {
 
     }
 
-    public Clase obtenerUsuario(int i) {
+    public void addRow(Clase c) {
+        clases.add(c);
+        fireTableRowsInserted(clases.size() - 1, clases.size() - 1);
+    }
+
+    public void removeRow(int i) {
+        clases.remove(i);
+        fireTableRowsInserted(clases.size() + 1, clases.size() + 1);
+    }
+
+    public Clase obtenerClase(int i) {
         return this.clases.get(i);
+    }
+    
+    public java.util.List<Clase> obtenerListaClases(){
+        return this.clases;
     }
 }

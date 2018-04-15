@@ -122,7 +122,7 @@ public class ModeloTablaBonos extends AbstractTableModel {
 
     }
 
-    public Bono obtenerUsuario(int i) {
+    public Bono obtenerBono(int i) {
         return this.bonos.get(i);
     }
 
