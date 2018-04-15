@@ -4,8 +4,6 @@
  */
 package gui;
 
-
-
 /**
  *
  * @author alumno
@@ -28,18 +26,21 @@ public class FachadaGui {
         va.setVisible(true);
     }
 
-
-
     public void muestraExcepcion(String txtExcepcion) {
         VAviso va;
 
         va = new VAviso(vAd, true, txtExcepcion);
         va.setVisible(true);
     }
-    public void NuevoUsuario(){
-        VUsuario u = new VUsuario(vAd,true,fa);
-         u.setVisible(true);
+
+    public void NuevoUsuario() {
+        VUsuario u = new VUsuario(vAd, true, fa);
+        u.setVisible(true);
     }
 
+    public void ventanaNuevoBono() {
+        VInsertaBono vib = new VInsertaBono(vAd, true, fa);
+        vib.setVisible(true);
+    }
 
 }
