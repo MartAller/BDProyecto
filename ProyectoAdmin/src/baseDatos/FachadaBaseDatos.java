@@ -83,9 +83,14 @@ public class FachadaBaseDatos {
     public java.util.List<Clase> mostrarClases(String orden) {
         return daoClases.mostrarClases(orden);
     }
+
+    public java.util.List<Clase> consultarClasesNuevoBono() {
+        return daoClases.consultarClasesNuevoBono();
+    }
 //////////////BONOS//////////////////////
 
     public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
         return daoBonos.consultarBonos(idBono, palabrasClave, noCaducados);
     }
+
 }

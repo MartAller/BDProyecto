@@ -47,10 +47,13 @@ public class FachadaAplicacion {
     public void muestraExcepcion(String e) {
         fgui.muestraExcepcion(e);
     }
-    public void NuevoUsuario(){
+
+    public void NuevoUsuario() {
         cu.NuevoUsuario();
     }
+
     //////////////USUARIOS/////////////////
+
     public Boolean comprobarAutentificacion(String idUsuario, String clave) {
         return cu.comprobarAutentificacion(idUsuario, clave);
     }
@@ -60,17 +63,21 @@ public class FachadaAplicacion {
     }
 
     /////////////CLASES//////////////////
-    
-    public java.util.List<Clase> mostrarClases(String orden){
+    public java.util.List<Clase> mostrarClases(String orden) {
         return cc.mostrarClases(orden);
     }
-    
+
+    public java.util.List<Clase> consultarClasesNuevoBono() {
+        return cc.consultarClasesNuevoBono();
+    }
+
     /////////////BONOS//////////////////
-    
     public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
         return cc.consultarBonos(idBono, palabrasClave, noCaducados);
     }
-    public void ventanaNuevoBono(){
+
+    public void ventanaNuevoBono() {
         cc.ventanaNuevoBono();
     }
+
 }

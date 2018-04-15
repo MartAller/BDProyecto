@@ -5,6 +5,8 @@
  */
 package aplicacion;
 
+import java.util.Date;
+
 /**
  *
  * @author alumnogreibd
@@ -15,16 +17,22 @@ public class Clase {
     private String horaInicio;
     private Integer nHoras;
     private Integer plazas;
-    private Integer profesor;
+    private Integer plazasDisponibles;
+    private String profesor;
+    private String actividad;
 
-    public Clase(Integer id_clase, java.util.Date fecha, String horaInicio, Integer nHoras, Integer plazas, Integer profesor) {
+    public Clase(Integer id_clase, Date fecha, String horaInicio, Integer nHoras, Integer plazas, Integer plazasDisponibles, String profesor, String actividad) {
         this.id_clase = id_clase;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.nHoras = nHoras;
         this.plazas = plazas;
-        this.profesor=profesor;
+        this.plazasDisponibles = plazasDisponibles;
+        this.profesor = profesor;
+        this.actividad = actividad;
     }
+
+
 
     public Integer getId_clase() {
         return id_clase;
@@ -62,13 +70,30 @@ public class Clase {
         return plazas;
     }
     
-    public Integer getProfesor() {
+    public String getProfesor() {
         return profesor;
     }
 
     public void setPlazas(Integer plazas) {
         this.plazas = plazas;
     }
+
+    public Integer getPlazasDisponibles() {
+        return plazasDisponibles;
+    }
+
+    public void setPlazasDisponibles(Integer plazasDisponibles) {
+        this.plazasDisponibles = plazasDisponibles;
+    }
+
+    public String getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(String actividad) {
+        this.actividad = actividad;
+    }
+    
     
     
     

@@ -4,25 +4,30 @@
  * and open the template in the editor.
  */
 package gui;
+
 import aplicacion.Clase;
 import javax.swing.table.AbstractTableModel;
+
 /**
  *
  * @author Carlos
  */
-public class ModeloTablaClases extends AbstractTableModel{
+public class ModeloTablaClases extends AbstractTableModel {
+
     private java.util.List<Clase> clases;
-    public ModeloTablaClases(){
+
+    public ModeloTablaClases() {
         this.clases = new java.util.ArrayList<Clase>();
     }
+
     public int getColumnCount() {
-        return 6;
+        return 8;
     }
 
     public int getRowCount() {
         return clases.size();
     }
-    
+
     @Override
     public String getColumnName(int col) {
         String nombre = "";
@@ -40,10 +45,16 @@ public class ModeloTablaClases extends AbstractTableModel{
                 nombre = "Numero horas";
                 break;
             case 4:
-                nombre = "Plazas";
+                nombre = "Plazas totales";
                 break;
             case 5:
+                nombre = "Plazas disponibles";
+                break;
+            case 6:
                 nombre = "Profesor";
+                break;
+            case 7:
+                nombre = "Actividad";
                 break;
         }
         return nombre;
@@ -70,6 +81,12 @@ public class ModeloTablaClases extends AbstractTableModel{
                 clase = java.lang.Integer.class;
                 break;
             case 5:
+                clase = java.lang.Integer.class;
+                break;
+            case 6:
+                clase = java.lang.String.class;
+                break;
+            case 7:
                 clase = java.lang.String.class;
                 break;
         }
@@ -101,7 +118,13 @@ public class ModeloTablaClases extends AbstractTableModel{
                 resultado = clases.get(row).getPlazas();
                 break;
             case 5:
+                resultado = clases.get(row).getPlazasDisponibles();
+                break;
+            case 6:
                 resultado = clases.get(row).getProfesor();
+                break;
+            case 7:
+                resultado = clases.get(row).getActividad();
                 break;
         }
         return resultado;
