@@ -39,8 +39,10 @@ public class GestionUsuarios {//Controlador de usuarios
     public java.util.List<Usuario> consultarUsuarios(String idUsuario, String nombre, String tipo) {
         return fbd.consultarUsuarios(idUsuario, nombre, tipo);
     }
-    public void NuevoUsuario(){
-        fgui.NuevoUsuario();
+    public void NuevoUsuario(String id){
+        Usuario u;
+        u=fbd.consultarUsuario(id);
+        fgui.NuevoUsuario(u);
     }
 
 }

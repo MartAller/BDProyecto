@@ -78,6 +78,9 @@ public class FachadaBaseDatos {
     public java.util.List<Usuario> consultarUsuarios(String idUsuario, String nombre, String tipo) {
         return daoUsuarios.consultarUsuarios(idUsuario, nombre, tipo);
     }
+    public Usuario consultarUsuario(String id){
+        return daoUsuarios.consultarUsuario(id);
+    }
 /////////////CLASES//////////////////////
 
     public java.util.List<Clase> mostrarClases(String orden) {

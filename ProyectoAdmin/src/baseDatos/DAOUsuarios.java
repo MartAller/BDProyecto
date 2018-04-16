@@ -149,5 +149,49 @@ public class DAOUsuarios extends AbstractDAO {
         }
         return resultado;
     }
+    public Usuario consultarUsuario(String id){
+        Usuario resultado=null;
+        Connection con;
+        PreparedStatement stmUsuario=null;
+        ResultSet rsUsuario;
+
+        con=super.getConexion();
+        
+        try {
+        stmUsuario=con.prepareStatement("select * " +
+                                         "from usuario "+
+                                         "where id_usuario = ?");
+        stmUsuario.setString(1, id);
+        rsUsuario=stmUsuario.executeQuery();
+        if (rsUsuario.next())
+        {
+            //Puesto comprobación
+                String p = rsUsuario.getString("puesto");
+                TipoPuesto puesto = null;
+                if (p != null) {
+                    puesto = TipoPuesto.valueOf(p);
+                }
+                //Categoría comprobación
+                String c = rsUsuario.getString("categoria");
+                TipoCategoria categoria = null;
+                if (c != null) {
+                    categoria = TipoCategoria.valueOf(c);
+                }
+            resultado = new Usuario(rsUsuario.getString("id_usuario"), rsUsuario.getString("clave"),
+                                      rsUsuario.getString("nombre"), rsUsuario.getString("telefono"),
+                                      rsUsuario.getString("direccion"), rsUsuario.getString("email"),TipoUsuario.valueOf(rsUsuario.getString("tipo_usuario")),
+                                      puesto,rsUsuario.getInt("antiguedad"),categoria,rsUsuario.getString("fecha_union"));
+        }
+
+        } catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {
+               stmUsuario.close();
+          } catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        return resultado;
+    }
 
 }

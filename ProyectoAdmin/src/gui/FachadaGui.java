@@ -4,6 +4,8 @@
  */
 package gui;
 
+import aplicacion.Usuario;
+
 /**
  *
  * @author alumno
@@ -33,9 +35,9 @@ public class FachadaGui {
         va.setVisible(true);
     }
 
-    public void NuevoUsuario() {
-        VUsuario u = new VUsuario(vAd, true, fa);
-        u.setVisible(true);
+    public void NuevoUsuario(Usuario u) {
+        VUsuario v = new VUsuario(vAd, true, fa, u);
+        v.setVisible(true);
     }
 
     public void ventanaNuevoBono() {

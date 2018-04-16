@@ -333,7 +333,10 @@ public class VAdmin extends javax.swing.JFrame {
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         // TODO add your handling code here:
-        fa.NuevoUsuario();
+        ModeloTablaUsuarios mtu = (ModeloTablaUsuarios) tablaUsuarios.getModel();
+        String idUsuario;
+        idUsuario = mtu.obtenerUsuario(tablaUsuarios.getSelectedRow()).getIdUsuario();
+        fa.NuevoUsuario(idUsuario);
     }//GEN-LAST:event_btnAccederActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

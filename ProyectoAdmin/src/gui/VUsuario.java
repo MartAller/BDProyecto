@@ -5,6 +5,8 @@
  */
 package gui;
 
+import aplicacion.Usuario;
+
 /**
  *
  * @author alumnogreibd
@@ -12,14 +14,47 @@ package gui;
 public class VUsuario extends javax.swing.JDialog {
     private aplicacion.FachadaAplicacion fa;
     private VAdmin padre;
+    private Usuario usuario;
     /**
      * Creates new form VUsuario
      */
-    public VUsuario(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
+    public VUsuario(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa,Usuario u) {
         super(parent, modal);
         this.fa=fa;
         initComponents();
         padre=(VAdmin) parent;
+        usuario=u;
+        id.setText(u.getIdUsuario());
+        nombre.setText(u.getNombre());
+        email.setText(u.getEmail());
+        direccion.setText(u.getDireccion());
+        telefono.setText(u.getTelefono());
+        antiguedad.setText(u.getAntiguedad().toString());
+        union.setText(u.getFecha_union());
+        if("Empleado".equals(u.getTipoUsuario().toString())){
+            tipo.setSelectedIndex(0);
+        }
+        else
+            tipo.setSelectedIndex(1);
+        if(u.getPuesto()==null){
+            puesto.setSelectedIndex(3);
+        }
+        else if("Administrador".equals(u.getPuesto().toString())){
+            puesto.setSelectedIndex(0);
+        }
+        else if("Mantenimiento".equals(u.getPuesto().toString())){
+            puesto.setSelectedIndex(1);
+        }
+        else
+            puesto.setSelectedIndex(2);
+        if(u.getCategoria()==null){
+            categoria.setSelectedIndex(2);
+        }
+        else if("Premium".equals(u.getCategoria().toString())){
+            categoria.setSelectedIndex(0);
+        }
+        else
+            categoria.setSelectedIndex(1);
     }
 
     /**

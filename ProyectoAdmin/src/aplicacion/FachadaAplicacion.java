@@ -48,8 +48,8 @@ public class FachadaAplicacion {
         fgui.muestraExcepcion(e);
     }
 
-    public void NuevoUsuario() {
-        cu.NuevoUsuario();
+    public void NuevoUsuario(String id) {
+        cu.NuevoUsuario(id);
     }
 
     //////////////USUARIOS/////////////////
