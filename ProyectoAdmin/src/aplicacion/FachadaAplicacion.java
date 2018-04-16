@@ -37,6 +37,7 @@ public class FachadaAplicacion {
         System.out.println("Hola33");
         System.out.println("version1");
         fa = new FachadaAplicacion();
+        //System
         fa.iniciaInterfazAdmin();
     }
 
