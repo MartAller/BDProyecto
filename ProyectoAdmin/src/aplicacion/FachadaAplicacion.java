@@ -14,10 +14,10 @@ import gui.FachadaGui;
  */
 public class FachadaAplicacion {
 
-    gui.FachadaGui fgui;
-    baseDatos.FachadaBaseDatos fbd;
-    GestionClasesBonos cc;
-    GestionUsuarios cu;
+    static gui.FachadaGui fgui;
+    static baseDatos.FachadaBaseDatos fbd;
+    static GestionClasesBonos cc;
+    static GestionUsuarios cu;
 
     public FachadaAplicacion() {
         fgui = new gui.FachadaGui(this);
@@ -37,7 +37,7 @@ public class FachadaAplicacion {
         System.out.println("Hola33");
         System.out.println("version1");
         fa = new FachadaAplicacion();
-        //System
+        fgui.getVAd().cargarDatos(null);
         fa.iniciaInterfazAdmin();
     }
 

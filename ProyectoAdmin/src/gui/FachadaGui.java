@@ -44,5 +44,9 @@ public class FachadaGui {
         VInsertaBono vib = new VInsertaBono(vAd, true, fa);
         vib.setVisible(true);
     }
+    
+    public VAdmin getVAd(){
+        return vAd;
+    }
 
 }
