@@ -52,6 +52,8 @@ public class VAdmin extends javax.swing.JFrame {
         tablaClases = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        opciones = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
         panelFinanzas = new javax.swing.JPanel();
         panelUsuarios = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -163,31 +165,46 @@ public class VAdmin extends javax.swing.JFrame {
 
         jButton2.setText("Editar clase");
 
+        opciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "fecha", "hora_inicio", "plazas", "precio" }));
+        opciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionesActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Ordenar por");
+
         javax.swing.GroupLayout panelClasesLayout = new javax.swing.GroupLayout(panelClases);
         panelClases.setLayout(panelClasesLayout);
         panelClasesLayout.setHorizontalGroup(
             panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClasesLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
                 .addGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelClasesLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelClasesLayout.createSequentialGroup()
-                        .addGap(86, 86, 86)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(opciones, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
-                        .addGap(57, 57, 57)
-                        .addComponent(jButton2)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addComponent(jButton2)
+                        .addGap(104, 104, 104))
+                    .addGroup(panelClasesLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(90, Short.MAX_VALUE))))
         );
         panelClasesLayout.setVerticalGroup(
             panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClasesLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(opciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(37, 37, 37))
         );
 
@@ -381,6 +398,12 @@ public class VAdmin extends javax.swing.JFrame {
         fa.ventanaNuevoBono();
     }//GEN-LAST:event_btnNuevoBonoActionPerformed
 
+    private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
+        // TODO add your handling code here:
+        String seleccion=opciones.getSelectedItem().toString();
+        cargarDatos(seleccion);
+    }//GEN-LAST:event_opcionesActionPerformed
+
 
 
     public void actualizarUsuarios() {
@@ -418,10 +441,12 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JComboBox opciones;
     private javax.swing.JPanel panelBonos;
     private javax.swing.JPanel panelClases;
     private javax.swing.JPanel panelCuenta;
@@ -434,10 +459,10 @@ public class VAdmin extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    public void cargarDatos(){
+    public void cargarDatos(String orden){
         java.util.List<Clase> clases;
         ModeloTablaClases mu = (ModeloTablaClases) tablaClases.getModel();
-        clases = fa.mostrarClases(null);
+        clases = fa.mostrarClases(orden);
         mu.setFilas(clases);
     }
 }
