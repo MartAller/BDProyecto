@@ -193,5 +193,38 @@ public class DAOUsuarios extends AbstractDAO {
         }
         return resultado;
     }
+    
+    public java.util.ArrayList<Usuario> consultarProfesores(){
+        java.util.ArrayList<Usuario> profesores= new java.util.ArrayList<>();
+        Connection con;
+        PreparedStatement stmUsuario=null;
+        ResultSet rsUsuario=null;
+        
+        con=super.getConexion();
+        
+        try {
+        stmUsuario=con.prepareStatement("select * " +
+                                         "from usuario "+
+                                         "where puesto = 'Profesor'");
+        rsUsuario=stmUsuario.executeQuery();
+        while (rsUsuario.next())
+        {
+            //añadimos los profesores al array
+            profesores.add(new Usuario(rsUsuario.getString("id_usuario"), rsUsuario.getString("clave"),
+                                      rsUsuario.getString("nombre"), rsUsuario.getString("telefono"),
+                                      rsUsuario.getString("direccion"), rsUsuario.getString("email"),TipoUsuario.valueOf(rsUsuario.getString("tipo_usuario")),
+                                      TipoPuesto.valueOf(rsUsuario.getString("puesto")),rsUsuario.getInt("antiguedad"),null,rsUsuario.getString("fecha_union")));
+        }
+
+        } catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {
+               stmUsuario.close();
+          } catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        return profesores;
+    }
 
 }

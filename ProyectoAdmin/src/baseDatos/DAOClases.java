@@ -5,6 +5,7 @@
  */
 package baseDatos;
 
+import aplicacion.Actividad;
 import aplicacion.Clase;
 import java.sql.*;
 
@@ -99,5 +100,65 @@ public class DAOClases extends AbstractDAO {
             }
         }
         return resultado;
+    }
+    
+    public java.util.ArrayList<Actividad> consultarActividades(){
+        java.util.ArrayList<Actividad> actividades= new java.util.ArrayList<>();
+        
+        Connection con;
+        PreparedStatement stmActividad = null;
+        ResultSet rsActividad=null;
+
+        //Abro conexión
+        con = this.getConexion();
+        String consulta = "select * from actividad";
+
+        try {
+            stmActividad = con.prepareStatement(consulta);
+            rsActividad = stmActividad.executeQuery();
+            
+            while (rsActividad.next()) {
+                actividades.add( new Actividad(rsActividad.getString("nombre"), rsActividad.getString("descripcion"), 
+                        rsActividad.getString("instalacion"), rsActividad.getFloat("preciohora")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmActividad.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return actividades;
+    }
+    
+    public void nuevaClase(Clase clase){
+        Connection con;
+        PreparedStatement stmClase=null;
+
+        con=super.getConexion();
+
+        try {
+            stmClase=con.prepareStatement("insert into clase "+  //(id_clase, horainicio, nhoras, precio, plazas, profesor, actividad)
+                                          "values (?,?,?,?,?,?,?,?)");
+            stmClase.setInt(1, clase.getId_clase());
+            stmClase.setDate(2, (java.sql.Date)clase.getFecha());
+            stmClase.setString(3, clase.getHoraInicio());
+            stmClase.setInt(4, clase.getnHoras());
+            stmClase.setDouble(5,0.0); //añadir precio a Clase
+            stmClase.setInt(6,clase.getPlazas());
+            stmClase.setString(7, clase.getProfesor());
+            stmClase.setString(8, clase.getActividad());
+            stmClase.executeUpdate();
+        
+        } catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {stmClase.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
     }
 }

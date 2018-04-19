@@ -7,6 +7,7 @@ package gui;
 
 import aplicacion.Clase;
 import aplicacion.Usuario;
+import aplicacion.Actividad;
 
 /**
  *
@@ -50,7 +51,7 @@ public class VAdmin extends javax.swing.JFrame {
         panelClases = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClases = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        nueva_clase_btn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         opciones = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
@@ -161,7 +162,12 @@ public class VAdmin extends javax.swing.JFrame {
         tablaClases.setModel(new ModeloTablaClases());
         jScrollPane3.setViewportView(tablaClases);
 
-        jButton1.setText("Nueva clase");
+        nueva_clase_btn.setText("Nueva clase");
+        nueva_clase_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nueva_clase_btnActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Editar clase");
 
@@ -186,7 +192,7 @@ public class VAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(opciones, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(nueva_clase_btn)
                         .addGap(38, 38, 38)
                         .addComponent(jButton2)
                         .addGap(104, 104, 104))
@@ -201,7 +207,7 @@ public class VAdmin extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(nueva_clase_btn)
                     .addComponent(jButton2)
                     .addComponent(opciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -404,6 +410,14 @@ public class VAdmin extends javax.swing.JFrame {
         cargarDatos(seleccion);
     }//GEN-LAST:event_opcionesActionPerformed
 
+    private void nueva_clase_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueva_clase_btnActionPerformed
+        // TODO add your handling code here:
+        //hallamos los profesores, y los guardamos en un arralist:
+        java.util.ArrayList<Usuario> profesores=fa.consultarProfesores();
+        java.util.ArrayList<Actividad> actividades=fa.consultarActividades();
+        fa.ventanaNuevaClase(profesores, actividades);
+    }//GEN-LAST:event_nueva_clase_btnActionPerformed
+
 
 
     public void actualizarUsuarios() {
@@ -435,7 +449,6 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField buscaPalabrasClave;
     private javax.swing.JCheckBox checkBonos;
     private javax.swing.JComboBox comboTipo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -446,6 +459,7 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton nueva_clase_btn;
     private javax.swing.JComboBox opciones;
     private javax.swing.JPanel panelBonos;
     private javax.swing.JPanel panelClases;

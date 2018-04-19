@@ -62,6 +62,10 @@ public class FachadaAplicacion {
     public java.util.List<Usuario> consultarUsuarios(String idUsuario, String nombre, String tipo) {
         return cu.consultarUsuarios(idUsuario, nombre, tipo);
     }
+    
+    public java.util.ArrayList<Usuario> consultarProfesores(){
+        return cu.consultarProfesores();
+    }
 
     /////////////CLASES//////////////////
     public java.util.List<Clase> mostrarClases(String orden) {
@@ -71,6 +75,14 @@ public class FachadaAplicacion {
     public java.util.List<Clase> consultarClasesNuevoBono() {
         return cc.consultarClasesNuevoBono();
     }
+    public void nuevaClase(Clase clase){
+        cc.nuevaClase(clase);
+    }
+    
+    //actividad
+    public java.util.ArrayList<Actividad> consultarActividades(){
+        return cc.consultarActividades();
+    }
 
     /////////////BONOS//////////////////
     public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
@@ -79,6 +91,10 @@ public class FachadaAplicacion {
 
     public void ventanaNuevoBono() {
         cc.ventanaNuevoBono();
+    }
+    
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
+        cc.ventanaNuevaClase(profesores, actividades);
     }
     
     public void insertarBono(Bono bono, java.util.List<Clase> clases){

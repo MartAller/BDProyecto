@@ -4,6 +4,7 @@
  */
 package baseDatos;
 
+import aplicacion.Actividad;
 import aplicacion.Bono;
 import aplicacion.Clase;
 import aplicacion.Usuario;
@@ -81,6 +82,10 @@ public class FachadaBaseDatos {
     public Usuario consultarUsuario(String id){
         return daoUsuarios.consultarUsuario(id);
     }
+    
+    public java.util.ArrayList<Usuario> consultarProfesores(){
+        return daoUsuarios.consultarProfesores();
+    }
 /////////////CLASES//////////////////////
 
     public java.util.List<Clase> mostrarClases(String orden) {
@@ -89,6 +94,15 @@ public class FachadaBaseDatos {
 
     public java.util.List<Clase> consultarClasesNuevoBono() {
         return daoClases.consultarClasesNuevoBono();
+    }
+    
+    public void nuevaClase(Clase clase){
+        daoClases.nuevaClase(clase);
+    }
+    
+    //actividad
+    public java.util.ArrayList<Actividad> consultarActividades(){
+        return daoClases.consultarActividades();
     }
 //////////////BONOS//////////////////////
 
