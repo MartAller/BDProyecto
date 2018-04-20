@@ -48,6 +48,7 @@ public class VAdmin extends javax.swing.JFrame {
         btnBuscarBono = new javax.swing.JButton();
         checkBonos = new javax.swing.JCheckBox();
         btnNuevoBono = new javax.swing.JButton();
+        btnInscribir = new javax.swing.JButton();
         panelClases = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClases = new javax.swing.JTable();
@@ -108,6 +109,8 @@ public class VAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnInscribir.setText("Inscribir socio");
+
         javax.swing.GroupLayout panelBonosLayout = new javax.swing.GroupLayout(panelBonos);
         panelBonos.setLayout(panelBonosLayout);
         panelBonosLayout.setHorizontalGroup(
@@ -123,19 +126,20 @@ public class VAdmin extends javax.swing.JFrame {
                 .addComponent(buscaPalabrasClave, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(199, 199, 199))
             .addGroup(panelBonosLayout.createSequentialGroup()
-                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(46, 46, 46)
+                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(panelBonosLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panelBonosLayout.createSequentialGroup()
-                                .addComponent(checkBonos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarBono))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelBonosLayout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(btnNuevoBono, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(checkBonos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscarBono))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelBonosLayout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(btnNuevoBono, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnInscribir)
+                .addGap(182, 182, 182))
         );
         panelBonosLayout.setVerticalGroup(
             panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +157,9 @@ public class VAdmin extends javax.swing.JFrame {
                     .addComponent(btnBuscarBono)
                     .addComponent(checkBonos))
                 .addGap(30, 30, 30)
-                .addComponent(btnNuevoBono, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelBonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevoBono, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInscribir))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
@@ -441,6 +447,7 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnAcceder;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscarBono;
+    private javax.swing.JButton btnInscribir;
     private javax.swing.JButton btnNuevoBono;
     private javax.swing.JButton btnSalir;
     private javax.swing.JTextField buscaId;
