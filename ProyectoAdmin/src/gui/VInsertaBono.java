@@ -21,6 +21,7 @@ public class VInsertaBono extends javax.swing.JDialog {
         this.fa = fa;
         initComponents();
         mostrarClases();
+        btnQuitarClase.setEnabled(false);
     }
 
     /**
@@ -125,17 +126,16 @@ public class VInsertaBono extends javax.swing.JDialog {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(183, 183, 183)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnAnhadirClase, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnQuitarClase))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane3)))
-                                .addContainerGap(42, Short.MAX_VALUE))))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane3))
+                                .addContainerGap(41, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -190,7 +190,7 @@ public class VInsertaBono extends javax.swing.JDialog {
         java.util.List<Clase> clases = m.obtenerListaClases();
         Integer idBono = Integer.parseInt(insertaIdBono.getText());
         String descripcion = insertaDescripcion.getText();
-        
+
         aplicacion.Bono bono = new aplicacion.Bono(idBono, descripcion, 0, null, null, null);
         fa.insertarBono(bono, clases);
     }//GEN-LAST:event_btnCrearBonoActionPerformed
@@ -214,24 +214,33 @@ public class VInsertaBono extends javax.swing.JDialog {
         Integer nHoras = (Integer) m1.getValueAt(i, 3);
         Integer plazas = (Integer) m1.getValueAt(i, 4);
         Integer plazasDisponibles = (Integer) m1.getValueAt(i, 5);
-        String profesor = m1.getValueAt(i, 5).toString();
-        String actividad = m1.getValueAt(i, 6).toString();
+        String profesor = m1.getValueAt(i, 6).toString();
+        String actividad = m1.getValueAt(i, 7).toString();
+        String instalacion = m1.getValueAt(i, 8).toString();
 
         //Añado una fila a la tabla de clases del bono
-        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad, null);
+        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad, instalacion);
         m2.addRow(c);
+        tablaClasesBono.setRowSelectionInterval(0, 0);
 
         //Quito la fila de la tabla de clases (no se puede añadir una clase dos veces al mismo bono)
         m1.removeRow(i);
+        btnQuitarClase.setEnabled(true);
+        if (m1.getRowCount() == 0) {
+            btnAnhadirClase.setEnabled(false);
+
+        } else {
+            tablaClases.setRowSelectionInterval(0, 0);
+        }
     }//GEN-LAST:event_btnAnhadirClaseActionPerformed
 
     private void btnQuitarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarClaseActionPerformed
         ModeloTablaClases m1, m2;
-        Integer i; //Índice de la fila seleccionada en la tabla de clases.
+        Integer i; //Índice de la fila seleccionada en la tabla de clases del bono.
 
         m1 = (ModeloTablaClases) tablaClases.getModel();
         m2 = (ModeloTablaClases) tablaClasesBono.getModel();
-        i = tablaClases.getSelectedRow();
+        i = tablaClasesBono.getSelectedRow();
 
         //Creo un objeto de tipo Clase
         Integer idClase = (Integer) m2.getValueAt(i, 0);
@@ -240,15 +249,22 @@ public class VInsertaBono extends javax.swing.JDialog {
         Integer nHoras = (Integer) m2.getValueAt(i, 3);
         Integer plazas = (Integer) m2.getValueAt(i, 4);
         Integer plazasDisponibles = (Integer) m2.getValueAt(i, 5);
-        String profesor = m2.getValueAt(i, 5).toString();
-        String actividad = m2.getValueAt(i, 6).toString();
+        String profesor = m2.getValueAt(i, 6).toString();
+        String actividad = m2.getValueAt(i, 7).toString();
+        String instalacion = m2.getValueAt(i, 8).toString();
 
         //Añado una fila a la tabla de clases del bono
-        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad, null);
+        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad, instalacion);
         m1.addRow(c);
-
+        tablaClases.setRowSelectionInterval(0, 0);
         //Quito la fila de la tabla de clases (no se puede añadir una clase dos veces al mismo bono)
         m2.removeRow(i);
+        btnAnhadirClase.setEnabled(true);
+        if (m2.getRowCount() == 0) {
+            btnQuitarClase.setEnabled(false);
+        } else {
+            tablaClasesBono.setRowSelectionInterval(0, 0);
+        }
     }//GEN-LAST:event_btnQuitarClaseActionPerformed
 
     private void mostrarClases() {

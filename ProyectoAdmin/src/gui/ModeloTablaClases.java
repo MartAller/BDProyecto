@@ -21,7 +21,7 @@ public class ModeloTablaClases extends AbstractTableModel {
     }
 
     public int getColumnCount() {
-        return 8;
+        return 9;
     }
 
     public int getRowCount() {
@@ -41,6 +41,7 @@ public class ModeloTablaClases extends AbstractTableModel {
                 break;
             case 2:
                 nombre = "Hora inicio";
+                break;
             case 3:
                 nombre = "Numero horas";
                 break;
@@ -133,7 +134,7 @@ public class ModeloTablaClases extends AbstractTableModel {
                 resultado = clases.get(row).getActividad();
                 break;
             case 8:
-                resultado = clases.get(row).getActividad();
+                resultado = clases.get(row).getInstalacion();
                 break;
         }
         return resultado;

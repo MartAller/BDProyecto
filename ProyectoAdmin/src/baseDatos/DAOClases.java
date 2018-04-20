@@ -70,12 +70,14 @@ public class DAOClases extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(*)) as plazasDisponibles, c.profesor, c.actividad " +
-                            " FROM inscripcion i " +
-                            " JOIN clasesBono cb USING (bono) " +
-                            " JOIN clase c ON (cb.idClase = c.id_clase) " +
-                            " GROUP BY c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas " +
-                            " HAVING count(*) < c.plazas AND c.fecha > CURRENT_DATE";
+        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion " +
+                           " FROM clase c LEFT JOIN clasesBono cb ON (c.id_clase = cb.idClase) " + //Incluyo todas las clases, aunque no estén asociadas a un bono
+                           " LEFT JOIN inscripcion i ON (i.bono = cb.bono) " + //Incluyo todos los bonos, aunque no se haya inscrito nadie
+                           " JOIN actividad a ON (c.actividad = a.nombre) " +
+                           " JOIN instalacion ins ON (ins.id_instalacion = a.instalacion) " +
+                           " GROUP BY c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, ins.nombre " +
+                           " HAVING count(i.*) < c.plazas AND c.fecha > CURRENT_DATE " +
+                           " ORDER BY c.id_clase";
                 
  
 
@@ -85,7 +87,7 @@ public class DAOClases extends AbstractDAO {
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"), null);
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
                 resultado.add(clase);
             }
         } catch (SQLException e) {

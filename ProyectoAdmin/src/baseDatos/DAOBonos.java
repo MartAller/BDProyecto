@@ -33,7 +33,7 @@ public class DAOBonos extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "SELECT b.id_bono, b.descripcion, b.precio, min(cb.fechaClase) as fInicio, max(cb.fechaClase) as fFin, count(*) as nBonos "
+        String consulta = "SELECT b.id_bono, b.descripcion, b.precio, min(cb.fechaClase) as fInicio, max(cb.fechaClase) as fFin, count(*) as nClases "
                 + "FROM bono b JOIN clasesBono cb ON (b.id_bono = cb.bono) "
                 + "WHERE true ";
 
@@ -70,7 +70,7 @@ public class DAOBonos extends AbstractDAO {
             rsBonos = stmBonos.executeQuery();
             while (rsBonos.next()) {
                 bonoActual = new Bono(rsBonos.getInt("id_bono"), rsBonos.getString("descripcion"), rsBonos.getFloat("precio"),
-                        rsBonos.getString("fInicio"), rsBonos.getString("fFin"), rsBonos.getInt("nBonos"));
+                        rsBonos.getString("fInicio"), rsBonos.getString("fFin"), rsBonos.getInt("nClases"));
                 resultado.add(bonoActual);
             }
 
