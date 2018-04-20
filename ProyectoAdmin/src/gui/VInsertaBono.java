@@ -218,7 +218,7 @@ public class VInsertaBono extends javax.swing.JDialog {
         String actividad = m1.getValueAt(i, 6).toString();
 
         //Añado una fila a la tabla de clases del bono
-        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad);
+        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad, null);
         m2.addRow(c);
 
         //Quito la fila de la tabla de clases (no se puede añadir una clase dos veces al mismo bono)
@@ -244,7 +244,7 @@ public class VInsertaBono extends javax.swing.JDialog {
         String actividad = m2.getValueAt(i, 6).toString();
 
         //Añado una fila a la tabla de clases del bono
-        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad);
+        Clase c = new Clase(idClase, fecha, horaInicio, nHoras, plazas, plazasDisponibles, profesor, actividad, null);
         m1.addRow(c);
 
         //Quito la fila de la tabla de clases (no se puede añadir una clase dos veces al mismo bono)

@@ -42,7 +42,7 @@ public class DAOClases extends AbstractDAO {
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), null, rsClases.getString("profesor"), rsClases.getString("actividad"));
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), null, rsClases.getString("profesor"), rsClases.getString("actividad"), null);
                 resultado.add(clase);
             }
         } catch (SQLException e) {
@@ -85,7 +85,7 @@ public class DAOClases extends AbstractDAO {
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"));
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"), null);
                 resultado.add(clase);
             }
         } catch (SQLException e) {

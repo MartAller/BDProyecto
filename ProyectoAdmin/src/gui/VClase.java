@@ -278,7 +278,7 @@ public class VClase extends javax.swing.JDialog {
         // TODO add your handling code here:
         java.util.Date date=new java.util.Date(fecha.getText());
         fa.nuevaClase(new Clase(new Integer(id_clase.getText()), new java.util.Date(fecha.getText()), hora_inicio.getText(), new Integer(numero_horas.getText()),
-        new Integer(plazas.getText()), null, profesores.getSelectedItem().toString(), actividades.getSelectedItem().toString()));
+        new Integer(plazas.getText()), null, profesores.getSelectedItem().toString(), actividades.getSelectedItem().toString(), null));
     }//GEN-LAST:event_jButton1ActionPerformed
 
    
