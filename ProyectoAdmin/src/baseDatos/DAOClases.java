@@ -117,7 +117,7 @@ public class DAOClases extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion" +
+        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.precio, c.profesor, c.actividad, ins.nombre as instalacion" +
                            " FROM clase c JOIN clasesBono cb ON (c.id_clase = cb.idClase " +
                            "    AND c.fecha = cb.fechaClase " +
                            "    AND c.horaInicio = cb.horaClase" +
@@ -137,7 +137,7 @@ public class DAOClases extends AbstractDAO {
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getInt("precio"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
                 resultado.add(clase);
             }
         } catch (SQLException e) {
@@ -187,7 +187,7 @@ public class DAOClases extends AbstractDAO {
         return actividades;
     }
 
-    public void nuevaClase(Clase clase) {
+    public void nuevaClase(Clase clase, String fecha) {
         Connection con;
         PreparedStatement stmClase = null;
 
@@ -197,7 +197,7 @@ public class DAOClases extends AbstractDAO {
             stmClase = con.prepareStatement("insert into clase " + //(id_clase, horainicio, nhoras, precio, plazas, profesor, actividad)
                     "values (?,?,?,?,?,?,?,?)");
             stmClase.setInt(1, clase.getId_clase());
-            stmClase.setDate(2, (java.sql.Date) clase.getFecha());
+            stmClase.setDate(2, java.sql.Date.valueOf(fecha));
             stmClase.setString(3, clase.getHoraInicio());
             stmClase.setInt(4, clase.getnHoras());
             stmClase.setDouble(5, 0.0); //añadir precio a Clase

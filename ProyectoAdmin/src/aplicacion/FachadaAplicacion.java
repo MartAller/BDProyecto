@@ -36,6 +36,7 @@ public class FachadaAplicacion {
         System.out.println("Hola2222");
         System.out.println("Hola33");
         System.out.println("version1");
+        System.out.println("version2");
         fa = new FachadaAplicacion();
         fa.iniciaInterfazAdmin();
     }
@@ -84,6 +85,9 @@ public class FachadaAplicacion {
     
     public java.util.ArrayList<Actividad> consultarActividades(){
         return cc.consultarActividades();
+    }
+    public void nuevaClase(Clase clase, String fecha){
+        cc.nuevaClase(clase, fecha);
     }
 
     /////////////BONOS//////////////////

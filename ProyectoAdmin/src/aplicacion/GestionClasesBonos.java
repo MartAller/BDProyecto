@@ -40,6 +40,9 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     public void actualizarClase(Clase clase){
         fbd.actualizarClase(clase);
     }
+        public void nuevaClase(Clase clase, String fecha){
+        fbd.nuevaClase(clase, fecha);
+    }
     
     //actividad
     public java.util.ArrayList<Actividad> consultarActividades() {
