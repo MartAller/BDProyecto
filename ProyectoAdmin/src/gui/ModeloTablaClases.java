@@ -21,7 +21,7 @@ public class ModeloTablaClases extends AbstractTableModel {
     }
 
     public int getColumnCount() {
-        return 9;
+        return 10;
     }
 
     public int getRowCount() {
@@ -51,13 +51,16 @@ public class ModeloTablaClases extends AbstractTableModel {
             case 5:
                 nombre = "Plazas disponibles";
                 break;
-            case 6:
-                nombre = "Profesor";
+            case 6: 
+                nombre="Precio";
                 break;
             case 7:
-                nombre = "Actividad";
+                nombre = "Profesor";
                 break;
             case 8:
+                nombre = "Actividad";
+                break;
+            case 9:
                 nombre = "Instalación";
                 break;
         }
@@ -88,13 +91,16 @@ public class ModeloTablaClases extends AbstractTableModel {
                 clase = java.lang.Integer.class;
                 break;
             case 6:
-                clase = java.lang.String.class;
+                clase = java.lang.Integer.class;
                 break;
             case 7:
                 clase = java.lang.String.class;
                 break;
             case 8:
                 clase = java.lang.String.class;//Se muestra el nombre de la instalación en lugar del identificador
+                break;
+            case 9:
+                clase=java.lang.String.class;
                 break;
         }
         return clase;
@@ -128,12 +134,15 @@ public class ModeloTablaClases extends AbstractTableModel {
                 resultado = clases.get(row).getPlazasDisponibles();
                 break;
             case 6:
-                resultado = clases.get(row).getProfesor();
+                resultado=clases.get(row).getPrecio();
                 break;
             case 7:
-                resultado = clases.get(row).getActividad();
+                resultado = clases.get(row).getProfesor();
                 break;
             case 8:
+                resultado = clases.get(row).getActividad();
+                break;
+            case 9:
                 resultado = clases.get(row).getInstalacion();
                 break;
         }

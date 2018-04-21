@@ -100,11 +100,10 @@ public class FachadaBaseDatos {
     public java.util.List<Clase> consultarClasesBono(Integer idBono) {
         return daoClases.consultarClasesBono(idBono);
     }
-
-    public void nuevaClase(Clase clase) {
-        daoClases.nuevaClase(clase);
+    
+    public void actualizarClase(Clase clase){
+        daoClases.actualizarClase(clase);
     }
-
     //actividad
     public java.util.ArrayList<Actividad> consultarActividades() {
         return daoClases.consultarActividades();
