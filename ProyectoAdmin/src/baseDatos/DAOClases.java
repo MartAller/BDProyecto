@@ -29,7 +29,9 @@ public class DAOClases extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "select * from clase";
+        String consulta = "select  c.id_clase, c.fecha, c.horainicio, c.nhoras, c.precio, c.plazas, c.profesor, c.actividad, i.nombre as instalacion"
+                + " from clase c, actividad a, instalacion i"
+                + " where c.actividad=a.nombre and a.instalacion=i.id_instalacion ";
         if (orden != null) {
             consulta += " order by ?";
         }
@@ -42,7 +44,7 @@ public class DAOClases extends AbstractDAO {
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), null, rsClases.getString("profesor"), rsClases.getString("actividad"), null);
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), null, rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
                 resultado.add(clase);
             }
         } catch (SQLException e) {

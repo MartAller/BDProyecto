@@ -46,8 +46,6 @@ public class VClase extends javax.swing.JDialog {
         hora_inicio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         numero_horas = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        precio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         plazas = new javax.swing.JTextField();
         profesores = new javax.swing.JComboBox();
@@ -99,14 +97,6 @@ public class VClase extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setText("precio");
-
-        precio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                precioActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("plazas");
 
         plazas.addActionListener(new java.awt.event.ActionListener() {
@@ -152,27 +142,20 @@ public class VClase extends javax.swing.JDialog {
                             .addComponent(jLabel8))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(128, 128, 128)
-                                .addComponent(jLabel6)
-                                .addGap(48, 48, 48)
-                                .addComponent(precio))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(profesores, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2)
-                                        .addGap(28, 28, 28)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(actividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                                        .addComponent(jButton1))))))
+                                .addGap(13, 13, 13)
+                                .addComponent(profesores, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addGap(28, 28, 28)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(actividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -218,9 +201,7 @@ public class VClase extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(numero_horas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numero_horas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -257,10 +238,6 @@ public class VClase extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_numero_horasActionPerformed
 
-    private void precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_precioActionPerformed
-
     private void plazasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plazasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_plazasActionPerformed
@@ -271,14 +248,17 @@ public class VClase extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        padre.cargarClases(null);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        java.util.Date date=new java.util.Date(fecha.getText());
-        fa.nuevaClase(new Clase(new Integer(id_clase.getText()), new java.util.Date(fecha.getText()), hora_inicio.getText(), new Integer(numero_horas.getText()),
-        new Integer(plazas.getText()), null, profesores.getSelectedItem().toString(), actividades.getSelectedItem().toString(), null));
+        //java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MMM-dd");
+        //java.util.Date date=new java.util.Date(fecha.getText());
+        //fa.nuevaClase(new Clase(new Integer(id_clase.getText()), null, hora_inicio.getText(), new Integer(numero_horas.getText()),
+        //new Integer(plazas.getText()), null, profesores.getSelectedItem().toString(), actividades.getSelectedItem().toString(), null), fecha.getText());
+        vaciarCampos();
     }//GEN-LAST:event_jButton1ActionPerformed
 
    
@@ -295,14 +275,12 @@ public class VClase extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField numero_horas;
     private javax.swing.JTextField plazas;
-    private javax.swing.JTextField precio;
     private javax.swing.JComboBox profesores;
     // End of variables declaration//GEN-END:variables
 
@@ -311,6 +289,16 @@ public class VClase extends javax.swing.JDialog {
             this.profesores.addItem(p.getIdUsuario());
         for(Actividad a: actividades)
             this.actividades.addItem(a.getNombre());
+    }
+    
+    private void vaciarCampos(){
+        id_clase.setText("");
+        plazas.setText("");
+        fecha.setText("");
+        hora_inicio.setText("");
+        numero_horas.setText("");
+        profesores.setSelectedIndex(0);
+        actividades.setSelectedIndex(0);
     }
 
 }
