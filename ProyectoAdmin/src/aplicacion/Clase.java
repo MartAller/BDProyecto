@@ -18,19 +18,17 @@ public class Clase {
     private Integer nHoras;
     private Integer plazas;
     private Integer plazasDisponibles;
-    private Integer precio;
     private String profesor;
     private String actividad;
     private String instalacion;
 
-    public Clase(Integer id_clase, Date fecha, String horaInicio, Integer nHoras, Integer plazas,  Integer plazasDisponibles, Integer precio, String profesor, String actividad, String instalacion) {
+    public Clase(Integer id_clase, Date fecha, String horaInicio, Integer nHoras, Integer plazas,  Integer plazasDisponibles, String profesor, String actividad, String instalacion) {
         this.id_clase = id_clase;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.nHoras = nHoras;
         this.plazas = plazas;
         this.plazasDisponibles = plazasDisponibles;
-        this.precio=precio;
         this.profesor = profesor;
         this.actividad = actividad;
         this.instalacion = instalacion;
@@ -73,14 +71,7 @@ public class Clase {
     public Integer getPlazas() {
         return plazas;
     }
-    
-    public Integer getPrecio(){
-        return precio;
-    }
  
-    public void setPrecio(Integer precio){
-        this.precio=precio;
-    }
     
     public String getProfesor() {
         return profesor;

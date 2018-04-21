@@ -26,27 +26,25 @@ public class DAOClases extends AbstractDAO {
         Connection con;
         PreparedStatement stmClases = null;
         ResultSet rsClases;
-        String n_orden=null;
+
         //Abro conexión
         con = this.getConexion();
         String consulta = "select  c.id_clase, c.fecha, c.horainicio, c.nhoras, c.precio, c.plazas, c.profesor, c.actividad, i.nombre as instalacion"
                 + " from clase c, actividad a, instalacion i"
                 + " where c.actividad=a.nombre and a.instalacion=i.id_instalacion ";
         if (orden != null) {
-            consulta += " order by ? ";
-            n_orden="c."+orden;
-            System.out.println(consulta);
+            consulta += " order by ?";
         }
 
         try {
             stmClases = con.prepareStatement(consulta);
             if (orden != null) {
-                stmClases.setString(1, n_orden);
+                stmClases.setString(1, orden);
             }
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), null,rsClases.getInt("precio"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), null, rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
                 resultado.add(clase);
             }
         } catch (SQLException e) {
@@ -74,16 +72,16 @@ public class DAOClases extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas,c.precio, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion " +
-                           " FROM clase c LEFT JOIN clasesBono cb ON (c.id_clase = cb.idClase) " + //Incluyo todas las clases, aunque no estén asociadas a un bono
-                           " LEFT JOIN inscripcion i ON (i.bono = cb.bono) " + //Incluyo todos los bonos, aunque no se haya inscrito nadie
-                           " JOIN actividad a ON (c.actividad = a.nombre) " +
-                           " JOIN instalacion ins ON (ins.id_instalacion = a.instalacion) " +
-                           " GROUP BY c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, ins.nombre " +
-                           " HAVING count(i.*) < c.plazas AND c.fecha > CURRENT_DATE " +
-                           " ORDER BY c.id_clase";
-                
- 
+        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion "
+                + " FROM clase c LEFT JOIN clasesBono cb ON (c.id_clase = cb.idClase " + //Incluyo todas las clases, aunque no estén asociadas a un bono
+                  "    AND c.fecha = cb.fechaClase " +
+                  "    AND c.horaInicio = cb.horaClase)" +
+                " LEFT JOIN inscripcion i ON (i.bono = cb.bono) " + //Incluyo todos los bonos, aunque no se haya inscrito nadie
+                " JOIN actividad a ON (c.actividad = a.nombre) "
+                + " JOIN instalacion ins ON (ins.id_instalacion = a.instalacion) "
+                + " GROUP BY c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, ins.nombre "
+                + " HAVING count(i.*) < c.plazas AND c.fecha > CURRENT_DATE "
+                + " ORDER BY c.id_clase";
 
         try {
             stmClases = con.prepareStatement(consulta);
@@ -91,7 +89,7 @@ public class DAOClases extends AbstractDAO {
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getInt("precio"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
                 resultado.add(clase);
             }
         } catch (SQLException e) {
@@ -117,7 +115,7 @@ public class DAOClases extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.precio, c.profesor, c.actividad, ins.nombre as instalacion" +
+        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion" +
                            " FROM clase c JOIN clasesBono cb ON (c.id_clase = cb.idClase " +
                            "    AND c.fecha = cb.fechaClase " +
                            "    AND c.horaInicio = cb.horaClase" +
@@ -137,7 +135,7 @@ public class DAOClases extends AbstractDAO {
             rsClases = stmClases.executeQuery();
             while (rsClases.next()) {
                 Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
-                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getInt("precio"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
                 resultado.add(clase);
             }
         } catch (SQLException e) {
@@ -187,7 +185,7 @@ public class DAOClases extends AbstractDAO {
         return actividades;
     }
 
-    public void nuevaClase(Clase clase, String fecha) {
+    public void nuevaClase(Clase clase) {
         Connection con;
         PreparedStatement stmClase = null;
 
@@ -197,7 +195,7 @@ public class DAOClases extends AbstractDAO {
             stmClase = con.prepareStatement("insert into clase " + //(id_clase, horainicio, nhoras, precio, plazas, profesor, actividad)
                     "values (?,?,?,?,?,?,?,?)");
             stmClase.setInt(1, clase.getId_clase());
-            stmClase.setDate(2, java.sql.Date.valueOf(fecha));
+            stmClase.setDate(2, (java.sql.Date) clase.getFecha());
             stmClase.setString(3, clase.getHoraInicio());
             stmClase.setInt(4, clase.getnHoras());
             stmClase.setDouble(5, 0.0); //añadir precio a Clase
@@ -215,37 +213,6 @@ public class DAOClases extends AbstractDAO {
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
-        }
-    }
-    
-    public void actualizarClase(Clase clase){
-        Connection con;
-        PreparedStatement stmClase=null;
-
-        con=super.getConexion();
-        java.util.Date fecha=clase.getFecha();
-        int day=fecha.getDay();
-        int month=fecha.getMonth();
-        int year=fecha.getYear();
-        String date=""+year+"-"+month+"-"+day;
-        try {
-            stmClase=con.prepareStatement("update clase "
-                    + " set nhoras=?, plazas=?, profesor=?, actividad=? "
-                    + " where id_clase=? and fecha=? and horainicio=?");
-            stmClase.setInt(1, clase.getnHoras());
-            stmClase.setInt(2, clase.getPlazas());
-            stmClase.setString(3, clase.getProfesor());
-            stmClase.setString(4, clase.getActividad());
-            stmClase.setInt(5,clase.getId_clase()); //añadir precio a Clase
-            stmClase.setDate(6,java.sql.Date.valueOf(date)); //REVISAR
-            stmClase.setString(7, clase.getHoraInicio());
-            stmClase.executeUpdate();
-        
-        } catch (SQLException e){
-          System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-        }finally{
-          try {stmClase.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
     }
 }
