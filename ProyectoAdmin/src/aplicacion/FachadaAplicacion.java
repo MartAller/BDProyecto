@@ -53,7 +53,6 @@ public class FachadaAplicacion {
     }
 
     //////////////USUARIOS/////////////////
-
     public Boolean comprobarAutentificacion(String idUsuario, String clave) {
         return cu.comprobarAutentificacion(idUsuario, clave);
     }
@@ -61,8 +60,8 @@ public class FachadaAplicacion {
     public java.util.List<Usuario> consultarUsuarios(String idUsuario, String nombre, String tipo) {
         return cu.consultarUsuarios(idUsuario, nombre, tipo);
     }
-    
-    public java.util.ArrayList<Usuario> consultarProfesores(){
+
+    public java.util.ArrayList<Usuario> consultarProfesores() {
         return cu.consultarProfesores();
     }
 
@@ -74,8 +73,9 @@ public class FachadaAplicacion {
     public java.util.List<Clase> consultarClasesNuevoBono() {
         return cc.consultarClasesNuevoBono();
     }
-    public void nuevaClase(Clase clase, String fecha){
-        cc.nuevaClase(clase, fecha);
+
+    public java.util.List<Clase> consultarClasesBono(Integer idBono) {
+        return cc.consultarClasesBono(idBono);
     }
     
     public void actualizarClase(Clase clase){
@@ -98,12 +98,17 @@ public class FachadaAplicacion {
     public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades, Clase clase) {
         cc.ventanaNuevaClase(profesores, actividades, clase);
     }
-    
-    public void insertarBono(Bono bono, java.util.List<Clase> clases){
+
+    public void insertarBono(Bono bono, java.util.List<Clase> clases) {
         cc.insertarBono(bono, clases);
     }
+
     public void ventanaInscripcionBono(Bono bono) {
         cc.ventanaInscripcionBono(bono);
+    }
+
+    public void inscribirSocio(String idUsuario, Integer idBono) {
+        cc.inscribirSocio(idUsuario, idBono);
     }
 
 }

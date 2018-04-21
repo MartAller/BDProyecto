@@ -23,7 +23,7 @@ public class DAOBonos extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
-    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
+    public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {//Autor: Martín Aller
         java.util.List<Bono> resultado = new java.util.ArrayList<Bono>();
 
         Bono bonoActual;
@@ -88,10 +88,7 @@ public class DAOBonos extends AbstractDAO {
         return resultado;
     }
 
-    public void insertarBono(Bono bono, java.util.List<Clase> clases) {
-        java.util.List<Bono> resultado = new java.util.ArrayList<Bono>();
-
-        Bono bonoActual;
+    public void insertarBono(Bono bono, java.util.List<Clase> clases) {//Autor: Martín Aller
         Connection con;
         PreparedStatement stmBonos = null, stmClasesBono = null;
 
@@ -125,12 +122,15 @@ public class DAOBonos extends AbstractDAO {
                 this.getFachadaAplicacion().muestraExcepcion(e2.getMessage());
 
             } finally {
-
+                try {
+                    stmClasesBono.close();
+                } catch (SQLException e) {
+                    System.out.println("Imposible cerrar cursores");
+                }
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
         } finally {
             try {
@@ -141,4 +141,34 @@ public class DAOBonos extends AbstractDAO {
         }
 
     }
+
+    public void inscribirSocio(String idUsuario, Integer idBono) {//Autor: Martín Aller
+        Connection con;
+        PreparedStatement stmBonos = null;
+
+        //Abro conexión
+        con = this.getConexion();
+        String cadena = "INSERT INTO inscripcion VALUES(?,?,CURRENT_DATE)";
+
+        try {
+            //Inserción del bono en la tabla Bono
+            stmBonos = con.prepareStatement(cadena);
+            stmBonos.setString(1, idUsuario);
+            stmBonos.setInt(2, idBono);
+            //stmBonos.setFloat(3, bono.getPrecio());
+            stmBonos.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmBonos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+
+    }
+
 }

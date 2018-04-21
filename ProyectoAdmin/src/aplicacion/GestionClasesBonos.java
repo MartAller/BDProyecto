@@ -5,6 +5,7 @@
  */
 package aplicacion;
 
+import static aplicacion.FachadaAplicacion.cc;
 import baseDatos.FachadaBaseDatos;
 import gui.FachadaGui;
 
@@ -31,9 +32,9 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     public java.util.List<Clase> consultarClasesNuevoBono() {
         return fbd.consultarClasesNuevoBono();
     }
-    
-    public void nuevaClase(Clase clase, String fecha){
-        fbd.nuevaClase(clase, fecha);
+
+    public java.util.List<Clase> consultarClasesBono(Integer idBono) {
+        return fbd.consultarClasesBono(idBono);
     }
     
     public void actualizarClase(Clase clase){
@@ -41,12 +42,11 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     }
     
     //actividad
-    public java.util.ArrayList<Actividad> consultarActividades(){
+    public java.util.ArrayList<Actividad> consultarActividades() {
         return fbd.consultarActividades();
     }
 
     ///////////////BONOS////////////////////
-
     public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
         return fbd.consultarBonos(idBono, palabrasClave, noCaducados);
     }
@@ -54,6 +54,7 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     public void ventanaNuevoBono() {
         fgui.ventanaNuevoBono();
     }
+
     public void ventanaInscripcionBono(Bono bono) {
         fgui.ventanaInscripcionBono(bono);
     }
@@ -64,6 +65,10 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     
     public void insertarBono(Bono bono, java.util.List<Clase> clases){
         fbd.insertarBono(bono, clases);
+    }
+
+    public void inscribirSocio(String idUsuario, Integer idBono) {
+        fbd.inscribirSocio(idUsuario, idBono);
     }
 
 }

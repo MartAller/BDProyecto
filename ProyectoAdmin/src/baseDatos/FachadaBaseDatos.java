@@ -79,11 +79,12 @@ public class FachadaBaseDatos {
     public java.util.List<Usuario> consultarUsuarios(String idUsuario, String nombre, String tipo) {
         return daoUsuarios.consultarUsuarios(idUsuario, nombre, tipo);
     }
-    public Usuario consultarUsuario(String id){
+
+    public Usuario consultarUsuario(String id) {
         return daoUsuarios.consultarUsuario(id);
     }
-    
-    public java.util.ArrayList<Usuario> consultarProfesores(){
+
+    public java.util.ArrayList<Usuario> consultarProfesores() {
         return daoUsuarios.consultarProfesores();
     }
 /////////////CLASES//////////////////////
@@ -95,16 +96,16 @@ public class FachadaBaseDatos {
     public java.util.List<Clase> consultarClasesNuevoBono() {
         return daoClases.consultarClasesNuevoBono();
     }
-    
-    public void nuevaClase(Clase clase, String fecha){
-        daoClases.nuevaClase(clase, fecha);
+
+    public java.util.List<Clase> consultarClasesBono(Integer idBono) {
+        return daoClases.consultarClasesBono(idBono);
     }
     
     public void actualizarClase(Clase clase){
         daoClases.actualizarClase(clase);
     }
     //actividad
-    public java.util.ArrayList<Actividad> consultarActividades(){
+    public java.util.ArrayList<Actividad> consultarActividades() {
         return daoClases.consultarActividades();
     }
 //////////////BONOS//////////////////////
@@ -115,6 +116,10 @@ public class FachadaBaseDatos {
 
     public void insertarBono(Bono bono, java.util.List<Clase> clases) {
         daoBonos.insertarBono(bono, clases);
+    }
+
+    public void inscribirSocio(String idUsuario, Integer idBono) {
+        daoBonos.inscribirSocio(idUsuario, idBono);
     }
 
 }
