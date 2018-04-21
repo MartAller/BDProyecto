@@ -60,8 +60,8 @@ public class DAOClases extends AbstractDAO {
     }
 
     /*Realiza una consulta de aquellas clases que podrían incorporarse a un nuevo bono (clases
-    no caducadas cuyo límite de plazas no haya sido excedido)*/
-    public java.util.List<Clase> consultarClasesNuevoBono() {
+     no caducadas cuyo límite de plazas no haya sido excedido)*/
+    public java.util.List<Clase> consultarClasesNuevoBono() {//Autor: Martín Aller
         java.util.List<Clase> resultado = new java.util.ArrayList<Clase>();
 
         Connection con;
@@ -70,16 +70,16 @@ public class DAOClases extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion " +
-                           " FROM clase c LEFT JOIN clasesBono cb ON (c.id_clase = cb.idClase) " + //Incluyo todas las clases, aunque no estén asociadas a un bono
-                           " LEFT JOIN inscripcion i ON (i.bono = cb.bono) " + //Incluyo todos los bonos, aunque no se haya inscrito nadie
-                           " JOIN actividad a ON (c.actividad = a.nombre) " +
-                           " JOIN instalacion ins ON (ins.id_instalacion = a.instalacion) " +
-                           " GROUP BY c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, ins.nombre " +
-                           " HAVING count(i.*) < c.plazas AND c.fecha > CURRENT_DATE " +
-                           " ORDER BY c.id_clase";
-                
- 
+        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion "
+                + " FROM clase c LEFT JOIN clasesBono cb ON (c.id_clase = cb.idClase " + //Incluyo todas las clases, aunque no estén asociadas a un bono
+                  "    AND c.fecha = cb.fechaClase " +
+                  "    AND c.horaInicio = cb.horaClase)" +
+                " LEFT JOIN inscripcion i ON (i.bono = cb.bono) " + //Incluyo todos los bonos, aunque no se haya inscrito nadie
+                " JOIN actividad a ON (c.actividad = a.nombre) "
+                + " JOIN instalacion ins ON (ins.id_instalacion = a.instalacion) "
+                + " GROUP BY c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, ins.nombre "
+                + " HAVING count(i.*) < c.plazas AND c.fecha > CURRENT_DATE "
+                + " ORDER BY c.id_clase";
 
         try {
             stmClases = con.prepareStatement(consulta);
@@ -103,13 +103,59 @@ public class DAOClases extends AbstractDAO {
         }
         return resultado;
     }
-    
-    public java.util.ArrayList<Actividad> consultarActividades(){
-        java.util.ArrayList<Actividad> actividades= new java.util.ArrayList<>();
-        
+
+    public java.util.List<Clase> consultarClasesBono(Integer idBono) {
+        java.util.List<Clase> resultado = new java.util.ArrayList<Clase>();
+
+        Connection con;
+        PreparedStatement stmClases = null;
+        ResultSet rsClases;
+
+        //Abro conexión
+        con = this.getConexion();
+        String consulta = "SELECT c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, (c.plazas - count(i.*)) as plazasDisponibles, c.profesor, c.actividad, ins.nombre as instalacion" +
+                           " FROM clase c JOIN clasesBono cb ON (c.id_clase = cb.idClase " +
+                           "    AND c.fecha = cb.fechaClase " +
+                           "    AND c.horaInicio = cb.horaClase" +
+                           "    AND cb.bono = ?) " +
+                           " JOIN actividad a ON (c.actividad = a.nombre)\n" +
+                           " JOIN instalacion ins ON (ins.id_instalacion = a.instalacion) " +
+                           " LEFT JOIN inscripcion i ON (i.bono = cb.bono)" +
+                           " GROUP BY c.id_clase, c.fecha, c.horaInicio, c.nHoras, c.plazas, c.profesor, c.actividad, ins.nombre " +
+                           " HAVING count(i.*) < c.plazas AND c.fecha > CURRENT_DATE " +
+                           " ORDER BY c.id_clase";
+
+        try {
+            stmClases = con.prepareStatement(consulta);
+            if (idBono != null) {
+                stmClases.setInt(1, idBono);
+            }
+            rsClases = stmClases.executeQuery();
+            while (rsClases.next()) {
+                Clase clase = new Clase(rsClases.getInt("id_clase"), (java.util.Date) rsClases.getDate("fecha"), rsClases.getString("horaInicio"),
+                        rsClases.getInt("nHoras"), rsClases.getInt("plazas"), rsClases.getInt("plazasDisponibles"), rsClases.getString("profesor"), rsClases.getString("actividad"), rsClases.getString("instalacion"));
+                resultado.add(clase);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmClases.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+
+    public java.util.ArrayList<Actividad> consultarActividades() {
+        java.util.ArrayList<Actividad> actividades = new java.util.ArrayList<>();
+
         Connection con;
         PreparedStatement stmActividad = null;
-        ResultSet rsActividad=null;
+        ResultSet rsActividad = null;
 
         //Abro conexión
         con = this.getConexion();
@@ -118,9 +164,9 @@ public class DAOClases extends AbstractDAO {
         try {
             stmActividad = con.prepareStatement(consulta);
             rsActividad = stmActividad.executeQuery();
-            
+
             while (rsActividad.next()) {
-                actividades.add( new Actividad(rsActividad.getString("nombre"), rsActividad.getString("descripcion"), 
+                actividades.add(new Actividad(rsActividad.getString("nombre"), rsActividad.getString("descripcion"),
                         rsActividad.getString("instalacion"), rsActividad.getFloat("preciohora")));
             }
         } catch (SQLException e) {
@@ -136,31 +182,35 @@ public class DAOClases extends AbstractDAO {
         }
         return actividades;
     }
-    
-    public void nuevaClase(Clase clase){
-        Connection con;
-        PreparedStatement stmClase=null;
 
-        con=super.getConexion();
+    public void nuevaClase(Clase clase) {
+        Connection con;
+        PreparedStatement stmClase = null;
+
+        con = super.getConexion();
 
         try {
-            stmClase=con.prepareStatement("insert into clase "+  //(id_clase, horainicio, nhoras, precio, plazas, profesor, actividad)
-                                          "values (?,?,?,?,?,?,?,?)");
+            stmClase = con.prepareStatement("insert into clase " + //(id_clase, horainicio, nhoras, precio, plazas, profesor, actividad)
+                    "values (?,?,?,?,?,?,?,?)");
             stmClase.setInt(1, clase.getId_clase());
-            stmClase.setDate(2, (java.sql.Date)clase.getFecha());
+            stmClase.setDate(2, (java.sql.Date) clase.getFecha());
             stmClase.setString(3, clase.getHoraInicio());
             stmClase.setInt(4, clase.getnHoras());
-            stmClase.setDouble(5,0.0); //añadir precio a Clase
-            stmClase.setInt(6,clase.getPlazas());
+            stmClase.setDouble(5, 0.0); //añadir precio a Clase
+            stmClase.setInt(6, clase.getPlazas());
             stmClase.setString(7, clase.getProfesor());
             stmClase.setString(8, clase.getActividad());
             stmClase.executeUpdate();
-        
-        } catch (SQLException e){
-          System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-        }finally{
-          try {stmClase.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmClase.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
         }
     }
 }
