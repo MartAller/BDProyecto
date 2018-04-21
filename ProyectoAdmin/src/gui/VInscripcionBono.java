@@ -229,18 +229,18 @@ public class VInscripcionBono extends javax.swing.JDialog {
         }
     }
 
-//    public void cargarInscritos() {
-//        java.util.List<Usuario> usuarios;
-//        ModeloTablaUsuariosReducido m = (ModeloTablaUsuariosReducido) tablaSocios.getModel();
-//        usuarios = fa.consultarUsuarios(null, null, "Socio");//Realizo una consulta de los bonos sin restricciones
-//        m.setFilas(usuarios);
-//        if (m.getRowCount() > 0) {
-//            tablaSocios.setRowSelectionInterval(0, 0);
-//            //btnInscribir.setEnabled(true);
-//        } else {
-//            //btnInscribir.setEnabled(false);
-//        }
-//    }
+    public void cargarInscritos() {
+        java.util.List<Usuario> usuarios;
+        ModeloTablaUsuariosReducido m = (ModeloTablaUsuariosReducido) tablaSocios.getModel();
+        usuarios = fa.consultarUsuarios(null, null, "Socio");//Realizo una consulta de los bonos sin restricciones
+        m.setFilas(usuarios);
+        if (m.getRowCount() > 0) {
+            tablaSocios.setRowSelectionInterval(0, 0);
+            //btnInscribir.setEnabled(true);
+        } else {
+            //btnInscribir.setEnabled(false);
+        }
+    }
 
     public void cargarClasesBono() {
         java.util.List<Clase> clases;
