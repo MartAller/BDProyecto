@@ -5,6 +5,7 @@
  */
 package aplicacion;
 
+import static aplicacion.FachadaAplicacion.cc;
 import baseDatos.FachadaBaseDatos;
 import gui.FachadaGui;
 
@@ -31,18 +32,25 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     public java.util.List<Clase> consultarClasesNuevoBono() {
         return fbd.consultarClasesNuevoBono();
     }
-    
-    public void nuevaClase(Clase clase){
+
+    public java.util.List<Clase> consultarClasesBono(Integer idBono) {
+        return fbd.consultarClasesBono(idBono);
+    }
+
+    public void nuevaClase(Clase clase) {
         fbd.nuevaClase(clase);
     }
-    
+
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
+        fgui.ventanaNuevaClase(profesores, actividades);
+    }
+
     //actividad
-    public java.util.ArrayList<Actividad> consultarActividades(){
+    public java.util.ArrayList<Actividad> consultarActividades() {
         return fbd.consultarActividades();
     }
 
     ///////////////BONOS////////////////////
-
     public java.util.List<Bono> consultarBonos(Integer idBono, String palabrasClave, boolean noCaducados) {
         return fbd.consultarBonos(idBono, palabrasClave, noCaducados);
     }
@@ -50,16 +58,17 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     public void ventanaNuevoBono() {
         fgui.ventanaNuevoBono();
     }
+
     public void ventanaInscripcionBono(Bono bono) {
         fgui.ventanaInscripcionBono(bono);
     }
-    
-    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
-        fgui.ventanaNuevaClase(profesores, actividades);
-    }
-    
-    public void insertarBono(Bono bono, java.util.List<Clase> clases){
+
+    public void insertarBono(Bono bono, java.util.List<Clase> clases) {
         fbd.insertarBono(bono, clases);
+    }
+
+    public void inscribirSocio(String idUsuario, Integer idBono) {
+        fbd.inscribirSocio(idUsuario, idBono);
     }
 
 }
