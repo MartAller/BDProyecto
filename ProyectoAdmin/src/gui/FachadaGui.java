@@ -36,11 +36,23 @@ public class FachadaGui {
         va.setVisible(true);
     }
 
+    public VAdmin getVAd() {
+        return vAd;
+    }
+
+    //////////USUARIOS//////////////
     public void NuevoUsuario(Usuario u) {
         VUsuario v = new VUsuario(vAd, true, fa, u);
         v.setVisible(true);
     }
+//////////////////CLASES////////////////////////
 
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
+        VClase vc = new VClase(vAd, true, fa, profesores, actividades);
+        vc.setVisible(true);
+    }
+
+    /////////////////////////////BONOS////////////////////////////////
     public void ventanaNuevoBono() {
         VInsertaBono vib = new VInsertaBono(vAd, true, fa);
         vib.setVisible(true);
@@ -49,15 +61,6 @@ public class FachadaGui {
     public void ventanaInscripcionBono(aplicacion.Bono bono) {
         VInscripcionBono vib = new VInscripcionBono(vAd, true, fa, bono);
         vib.setVisible(true);
-    }
-
-    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
-        VClase vc = new VClase(vAd, true, fa, profesores, actividades);
-        vc.setVisible(true);
-    }
-
-    public VAdmin getVAd() {
-        return vAd;
     }
 
 }

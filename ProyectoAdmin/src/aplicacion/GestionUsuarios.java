@@ -30,7 +30,7 @@ public class GestionUsuarios {//Controlador de usuarios
          es correcto, validarUsuario() devolverá un usuario (u será distinto de null)*/
 
         if (u != null) {
-            return u.getPuesto() == TipoPuesto.Administrador;//Para poder acceder a la base de datos hay que ser administrador
+            return u.getPuesto() == TipoPuesto.Administrador;//Para poder acceder a la aplicación de administrador hay que ser usuario de tipo administrador
         } else {
             return false;
         }
