@@ -85,22 +85,25 @@ public class DAOUsuarios extends AbstractDAO {
             consulta = consulta + "  and nombre like ? ";
         }
         if (tipo != null) {
+            if (tipo.equalsIgnoreCase("Socio")) {
+                consulta = consulta + "  and (categoria = 'Normal' OR categoria = 'Premium')";
+                System.out.println("P1");
 
-            if (tipo.equals("Socio Normal")) {
+            }
+            if (tipo.equalsIgnoreCase("Socio Normal")) {
                 consulta = consulta + "  and categoria = 'Normal' ";
                 System.out.println("P1");
 
-            } else if (tipo.equals("Socio Prémium")) {
+            } else if (tipo.equalsIgnoreCase("Socio Prémium")) {
                 consulta = consulta + "  and categoria = 'Premium' ";
                 System.out.println("P2");
 
-            } else if (tipo.equals("Administrador") || tipo.equals("Profesor") || tipo.equals("Mantenimiento")) {
+            } else if (tipo.equalsIgnoreCase("Administrador") || tipo.equals("Profesor") || tipo.equals("Mantenimiento")) {
                 consulta = consulta + "  and puesto = '" + tipo + "' ";
                 //El valor de tipo se obtiene a partir de un JComboBox, por lo que no se pueden realizar inyecciones SQL
                 System.out.println("P3");
-            } 
-
-
+            }
+            //Si el tipo introducido es "Ambos" no se añade ninguna restricción
         }
 
         try {
@@ -149,23 +152,23 @@ public class DAOUsuarios extends AbstractDAO {
         }
         return resultado;
     }
-    public Usuario consultarUsuario(String id){
-        Usuario resultado=null;
+
+    public Usuario consultarUsuario(String id) {
+        Usuario resultado = null;
         Connection con;
-        PreparedStatement stmUsuario=null;
+        PreparedStatement stmUsuario = null;
         ResultSet rsUsuario;
 
-        con=super.getConexion();
-        
+        con = super.getConexion();
+
         try {
-        stmUsuario=con.prepareStatement("select * " +
-                                         "from usuario "+
-                                         "where id_usuario = ?");
-        stmUsuario.setString(1, id);
-        rsUsuario=stmUsuario.executeQuery();
-        if (rsUsuario.next())
-        {
-            //Puesto comprobación
+            stmUsuario = con.prepareStatement("select * "
+                    + "from usuario "
+                    + "where id_usuario = ?");
+            stmUsuario.setString(1, id);
+            rsUsuario = stmUsuario.executeQuery();
+            if (rsUsuario.next()) {
+                //Puesto comprobación
                 String p = rsUsuario.getString("puesto");
                 TipoPuesto puesto = null;
                 if (p != null) {
@@ -177,52 +180,55 @@ public class DAOUsuarios extends AbstractDAO {
                 if (c != null) {
                     categoria = TipoCategoria.valueOf(c);
                 }
-            resultado = new Usuario(rsUsuario.getString("id_usuario"), rsUsuario.getString("clave"),
-                                      rsUsuario.getString("nombre"), rsUsuario.getString("telefono"),
-                                      rsUsuario.getString("direccion"), rsUsuario.getString("email"),TipoUsuario.valueOf(rsUsuario.getString("tipo_usuario")),
-                                      puesto,rsUsuario.getInt("antiguedad"),categoria,rsUsuario.getString("fecha_union"));
-        }
+                resultado = new Usuario(rsUsuario.getString("id_usuario"), rsUsuario.getString("clave"),
+                        rsUsuario.getString("nombre"), rsUsuario.getString("telefono"),
+                        rsUsuario.getString("direccion"), rsUsuario.getString("email"), TipoUsuario.valueOf(rsUsuario.getString("tipo_usuario")),
+                        puesto, rsUsuario.getInt("antiguedad"), categoria, rsUsuario.getString("fecha_union"));
+            }
 
-        } catch (SQLException e){
-          System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-        }finally{
-          try {
-               stmUsuario.close();
-          } catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmUsuario.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
         }
         return resultado;
     }
-    
-    public java.util.ArrayList<Usuario> consultarProfesores(){
-        java.util.ArrayList<Usuario> profesores= new java.util.ArrayList<>();
-        Connection con;
-        PreparedStatement stmUsuario=null;
-        ResultSet rsUsuario=null;
-        
-        con=super.getConexion();
-        
-        try {
-        stmUsuario=con.prepareStatement("select * " +
-                                         "from usuario "+
-                                         "where puesto = 'Profesor'");
-        rsUsuario=stmUsuario.executeQuery();
-        while (rsUsuario.next())
-        {
-            //añadimos los profesores al array
-            profesores.add(new Usuario(rsUsuario.getString("id_usuario"), rsUsuario.getString("clave"),
-                                      rsUsuario.getString("nombre"), rsUsuario.getString("telefono"),
-                                      rsUsuario.getString("direccion"), rsUsuario.getString("email"),TipoUsuario.valueOf(rsUsuario.getString("tipo_usuario")),
-                                      TipoPuesto.valueOf(rsUsuario.getString("puesto")),rsUsuario.getInt("antiguedad"),null,rsUsuario.getString("fecha_union")));
-        }
 
-        } catch (SQLException e){
-          System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-        }finally{
-          try {
-               stmUsuario.close();
-          } catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+    public java.util.ArrayList<Usuario> consultarProfesores() {
+        java.util.ArrayList<Usuario> profesores = new java.util.ArrayList<>();
+        Connection con;
+        PreparedStatement stmUsuario = null;
+        ResultSet rsUsuario = null;
+
+        con = super.getConexion();
+
+        try {
+            stmUsuario = con.prepareStatement("select * "
+                    + "from usuario "
+                    + "where puesto = 'Profesor'");
+            rsUsuario = stmUsuario.executeQuery();
+            while (rsUsuario.next()) {
+                //añadimos los profesores al array
+                profesores.add(new Usuario(rsUsuario.getString("id_usuario"), rsUsuario.getString("clave"),
+                        rsUsuario.getString("nombre"), rsUsuario.getString("telefono"),
+                        rsUsuario.getString("direccion"), rsUsuario.getString("email"), TipoUsuario.valueOf(rsUsuario.getString("tipo_usuario")),
+                        TipoPuesto.valueOf(rsUsuario.getString("puesto")), rsUsuario.getInt("antiguedad"), null, rsUsuario.getString("fecha_union")));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmUsuario.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
         }
         return profesores;
     }

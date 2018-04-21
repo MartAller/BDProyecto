@@ -14,4 +14,5 @@ package aplicacion;
 public enum TipoUsuario {
     Socio,
     Empleado,
+    Ambos
 }

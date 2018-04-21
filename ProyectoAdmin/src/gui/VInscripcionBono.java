@@ -5,6 +5,8 @@
  */
 package gui;
 import aplicacion.Bono;
+import aplicacion.Clase;
+import aplicacion.Usuario;
 
 /**
  *
@@ -23,6 +25,8 @@ public class VInscripcionBono extends javax.swing.JDialog {
         this.fa = fa;
         this.bono = bono;
         initComponents();
+        cargarSocios();
+        cargarClasesBono();
         
     }
 
@@ -39,7 +43,7 @@ public class VInscripcionBono extends javax.swing.JDialog {
         tablaSocios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaClasesBono = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
         btnInscribir = new javax.swing.JButton();
@@ -56,8 +60,8 @@ public class VInscripcionBono extends javax.swing.JDialog {
 
         jLabel1.setText("Socios:");
 
-        jTable1.setModel(new ModeloTablaClases());
-        jScrollPane2.setViewportView(jTable1);
+        tablaClasesBono.setModel(new ModeloTablaClases());
+        jScrollPane2.setViewportView(tablaClasesBono);
 
         jLabel2.setText("Clases del bono:");
 
@@ -69,6 +73,11 @@ public class VInscripcionBono extends javax.swing.JDialog {
         });
 
         btnInscribir.setText("Inscribir");
+        btnInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInscribirActionPerformed(evt);
+            }
+        });
 
         buscaNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,6 +169,13 @@ public class VInscripcionBono extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_buscaIdActionPerformed
 
+    private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
+        // TODO add your handling code here:
+        ModeloTablaClases m = (ModeloTablaClases) tablaClasesBono.getModel();
+        String idUsuario = m.getValueAt(tablaClasesBono.getSelectedRow(), 0).toString();
+        fa.inscribirSocio(idUsuario, this.bono.getId_bono());
+    }//GEN-LAST:event_btnInscribirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -176,7 +192,30 @@ public class VInscripcionBono extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaClasesBono;
     private javax.swing.JTable tablaSocios;
     // End of variables declaration//GEN-END:variables
+
+
+    public void cargarSocios() {
+        java.util.List<Usuario> usuarios;
+        ModeloTablaUsuariosReducido m = (ModeloTablaUsuariosReducido) tablaSocios.getModel();
+        usuarios = fa.consultarUsuarios(null, null, "Socio");//Realizo una consulta de los bonos sin restricciones
+        m.setFilas(usuarios);
+        if (m.getRowCount() > 0) {
+            tablaSocios.setRowSelectionInterval(0, 0);
+            //btnInscribir.setEnabled(true);
+        } else {
+            //btnInscribir.setEnabled(false);
+        }
+    }
+    
+        public void cargarClasesBono() {
+        java.util.List<Clase> clases;
+        ModeloTablaClases mu = (ModeloTablaClases) tablaClasesBono.getModel();
+        clases = fa.consultarClasesBono(this.bono.getId_bono());
+        mu.setFilas(clases);
+        tablaClasesBono.setRowSelectionInterval(0, 0);
+
+    }
 }
