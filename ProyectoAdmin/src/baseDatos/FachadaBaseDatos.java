@@ -96,8 +96,8 @@ public class FachadaBaseDatos {
         return daoClases.consultarClasesNuevoBono();
     }
     
-    public void nuevaClase(Clase clase){
-        daoClases.nuevaClase(clase);
+    public void nuevaClase(Clase clase, String fecha){
+        daoClases.nuevaClase(clase, fecha);
     }
     
     //actividad

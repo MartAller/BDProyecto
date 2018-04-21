@@ -74,8 +74,8 @@ public class FachadaAplicacion {
     public java.util.List<Clase> consultarClasesNuevoBono() {
         return cc.consultarClasesNuevoBono();
     }
-    public void nuevaClase(Clase clase){
-        cc.nuevaClase(clase);
+    public void nuevaClase(Clase clase, String fecha){
+        cc.nuevaClase(clase, fecha);
     }
     
     public java.util.ArrayList<Actividad> consultarActividades(){

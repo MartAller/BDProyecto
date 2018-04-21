@@ -32,8 +32,8 @@ public class GestionClasesBonos {//Controlador de clases y bonos
         return fbd.consultarClasesNuevoBono();
     }
     
-    public void nuevaClase(Clase clase){
-        fbd.nuevaClase(clase);
+    public void nuevaClase(Clase clase, String fecha){
+        fbd.nuevaClase(clase, fecha);
     }
     
     //actividad
