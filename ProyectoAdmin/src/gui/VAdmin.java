@@ -481,8 +481,9 @@ public class VAdmin extends javax.swing.JFrame {
         ModeloTablaClases mu = (ModeloTablaClases) tablaClases.getModel();
         clases = fa.consultarClases(orden);
         mu.setFilas(clases);
+         if (mu.getRowCount() > 0) {
         tablaClases.setRowSelectionInterval(0, 0);
-
+         }
     }
 
     public void cargarBonos() {

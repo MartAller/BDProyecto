@@ -148,7 +148,7 @@ public class DAOBonos extends AbstractDAO {
 
         //Abro conexión
         con = this.getConexion();
-        String cadena = "INSERT INTO bono VALUES(?,?,CURRENT_DATE)";
+        String cadena = "INSERT INTO inscripcion VALUES(?,?,CURRENT_DATE)";
 
         try {
             //Inserción del bono en la tabla Bono
