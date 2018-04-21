@@ -24,6 +24,7 @@ public class VAdmin extends javax.swing.JFrame {
         this.fa = fa;
         initComponents();
         //cargarDatos();
+        //actualizarUsuarios();
         btnAcceder.setEnabled(false);
     }
 
@@ -110,6 +111,11 @@ public class VAdmin extends javax.swing.JFrame {
         });
 
         btnInscribir.setText("Inscribir socio");
+        btnInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInscribirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBonosLayout = new javax.swing.GroupLayout(panelBonos);
         panelBonos.setLayout(panelBonosLayout);
@@ -376,13 +382,13 @@ public class VAdmin extends javax.swing.JFrame {
 
         //Guardo en el objeto tabla los resultados obtenidos
         m.setFilas(fa.consultarUsuarios((buscaId.getText().isEmpty()) ? null : buscaId.getText(),
-            (buscaNombre.getText().isEmpty()) ? null : buscaNombre.getText(), comboTipo.getSelectedItem().toString()));
-    /*Si el campo id está vacío se pone a null*/
+                (buscaNombre.getText().isEmpty()) ? null : buscaNombre.getText(), comboTipo.getSelectedItem().toString()));
+        /*Si el campo id está vacío se pone a null*/
 
-    //Si la tabla obtenida tras la búsqueda tiene alguna fila:
-    if (m.getRowCount() > 0) {
-        tablaUsuarios.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
-        btnAcceder.setEnabled(true);
+        //Si la tabla obtenida tras la búsqueda tiene alguna fila:
+        if (m.getRowCount() > 0) {
+            tablaUsuarios.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
+            btnAcceder.setEnabled(true);
         } else {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -395,13 +401,13 @@ public class VAdmin extends javax.swing.JFrame {
 
         //Guardo en el objeto tabla los resultados obtenidos
         m.setFilas(fa.consultarBonos((buscaIdBono.getText().isEmpty()) ? null : Integer.parseInt(buscaIdBono.getText()),
-            (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText(), checkBonos.isSelected()));
-    /*Si el campo id está vacío se pone a null*/
+                (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText(), checkBonos.isSelected()));
+        /*Si el campo id está vacío se pone a null*/
 
-    //Si la tabla obtenida tras la búsqueda tiene alguna fila:
-    if (m.getRowCount() > 0) {
-        tablaBonos.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
-        //btnAcceder.setEnabled(true);
+        //Si la tabla obtenida tras la búsqueda tiene alguna fila:
+        if (m.getRowCount() > 0) {
+            tablaBonos.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
+            //btnAcceder.setEnabled(true);
         }
     }//GEN-LAST:event_btnBuscarBonoActionPerformed
 
@@ -412,19 +418,25 @@ public class VAdmin extends javax.swing.JFrame {
 
     private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
         // TODO add your handling code here:
-        String seleccion=opciones.getSelectedItem().toString();
+        String seleccion = opciones.getSelectedItem().toString();
         cargarDatos(seleccion);
     }//GEN-LAST:event_opcionesActionPerformed
 
     private void nueva_clase_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueva_clase_btnActionPerformed
         // TODO add your handling code here:
         //hallamos los profesores, y los guardamos en un arralist:
-        java.util.ArrayList<Usuario> profesores=fa.consultarProfesores();
-        java.util.ArrayList<Actividad> actividades=fa.consultarActividades();
+        java.util.ArrayList<Usuario> profesores = fa.consultarProfesores();
+        java.util.ArrayList<Actividad> actividades = fa.consultarActividades();
         fa.ventanaNuevaClase(profesores, actividades);
     }//GEN-LAST:event_nueva_clase_btnActionPerformed
 
+    private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
+        // TODO add your handling code here:
+        ModeloTablaBonos m = (ModeloTablaBonos) tablaBonos.getModel();/*ModeloTablaLibros extiende a AbstractTableModel*/
 
+        aplicacion.Bono bono = m.obtenerBono(tablaBonos.getSelectedRow());
+        fa.ventanaInscripcionBono(bono);
+    }//GEN-LAST:event_btnInscribirActionPerformed
 
     public void actualizarUsuarios() {
         java.util.List<Usuario> usuarios;
@@ -440,8 +452,8 @@ public class VAdmin extends javax.swing.JFrame {
             btnAcceder.setEnabled(false);
         }
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Nuevo;
     private javax.swing.JButton btnAcceder;
@@ -479,8 +491,7 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JTable tablaUsuarios;
     // End of variables declaration//GEN-END:variables
 
-
-    public void cargarDatos(String orden){
+    public void cargarDatos(String orden) {
         java.util.List<Clase> clases;
         ModeloTablaClases mu = (ModeloTablaClases) tablaClases.getModel();
         clases = fa.mostrarClases(orden);

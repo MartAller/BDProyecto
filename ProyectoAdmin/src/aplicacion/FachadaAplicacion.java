@@ -100,5 +100,8 @@ public class FachadaAplicacion {
     public void insertarBono(Bono bono, java.util.List<Clase> clases){
         cc.insertarBono(bono, clases);
     }
+    public void ventanaInscripcionBono(Bono bono) {
+        cc.ventanaInscripcionBono(bono);
+    }
 
 }

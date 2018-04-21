@@ -45,13 +45,18 @@ public class FachadaGui {
         VInsertaBono vib = new VInsertaBono(vAd, true, fa);
         vib.setVisible(true);
     }
-    
-    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades){
-        VClase vc=new VClase(vAd, true, fa, profesores, actividades);
+
+    public void ventanaInscripcionBono(aplicacion.Bono bono) {
+        VInscripcionBono vib = new VInscripcionBono(vAd, true, fa, bono);
+        vib.setVisible(true);
+    }
+
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
+        VClase vc = new VClase(vAd, true, fa, profesores, actividades);
         vc.setVisible(true);
     }
-    
-    public VAdmin getVAd(){
+
+    public VAdmin getVAd() {
         return vAd;
     }
 

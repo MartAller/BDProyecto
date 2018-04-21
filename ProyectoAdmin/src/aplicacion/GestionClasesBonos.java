@@ -50,6 +50,9 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     public void ventanaNuevoBono() {
         fgui.ventanaNuevoBono();
     }
+    public void ventanaInscripcionBono(Bono bono) {
+        fgui.ventanaInscripcionBono(bono);
+    }
     
     public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
         fgui.ventanaNuevaClase(profesores, actividades);
