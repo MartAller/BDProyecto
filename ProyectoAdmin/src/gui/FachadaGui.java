@@ -25,6 +25,9 @@ public class FachadaGui {
         VAutentificacion va;
 
         va = new VAutentificacion(vAd, true, fa);
+        vAd.cargarClases(null);
+        vAd.cargarBonos();
+        vAd.cargarUsuarios();
         vAd.setVisible(true);
         va.setVisible(true);
     }

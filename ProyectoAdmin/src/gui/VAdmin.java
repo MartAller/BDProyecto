@@ -6,6 +6,7 @@
 package gui;
 
 import aplicacion.Clase;
+import aplicacion.Bono;
 import aplicacion.Usuario;
 import aplicacion.Actividad;
 
@@ -23,8 +24,6 @@ public class VAdmin extends javax.swing.JFrame {
     public VAdmin(aplicacion.FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
-        //cargarDatos();
-        //actualizarUsuarios();
         btnAcceder.setEnabled(false);
     }
 
@@ -390,6 +389,7 @@ public class VAdmin extends javax.swing.JFrame {
             tablaUsuarios.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
             btnAcceder.setEnabled(true);
         } else {
+            btnAcceder.setEnabled(false);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -399,15 +399,15 @@ public class VAdmin extends javax.swing.JFrame {
 
         m = (ModeloTablaBonos) tablaBonos.getModel();/*ModeloTablaLibros extiende a AbstractTableModel*/
 
-        //Guardo en el objeto tabla los resultados obtenidos
         m.setFilas(fa.consultarBonos((buscaIdBono.getText().isEmpty()) ? null : Integer.parseInt(buscaIdBono.getText()),
                 (buscaPalabrasClave.getText().isEmpty()) ? null : buscaPalabrasClave.getText(), checkBonos.isSelected()));
-        /*Si el campo id está vacío se pone a null*/
 
-        //Si la tabla obtenida tras la búsqueda tiene alguna fila:
         if (m.getRowCount() > 0) {
             tablaBonos.setRowSelectionInterval(0, 0);//Por defecto selecciono la fila 0
-            //btnAcceder.setEnabled(true);
+            btnInscribir.setEnabled(true);
+        }
+        else{
+            btnInscribir.setEnabled(false);
         }
     }//GEN-LAST:event_btnBuscarBonoActionPerformed
 
@@ -419,7 +419,7 @@ public class VAdmin extends javax.swing.JFrame {
     private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
         // TODO add your handling code here:
         String seleccion = opciones.getSelectedItem().toString();
-        cargarDatos(seleccion);
+        cargarClases(seleccion);
     }//GEN-LAST:event_opcionesActionPerformed
 
     private void nueva_clase_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueva_clase_btnActionPerformed
@@ -437,21 +437,6 @@ public class VAdmin extends javax.swing.JFrame {
         aplicacion.Bono bono = m.obtenerBono(tablaBonos.getSelectedRow());
         fa.ventanaInscripcionBono(bono);
     }//GEN-LAST:event_btnInscribirActionPerformed
-
-    public void actualizarUsuarios() {
-        java.util.List<Usuario> usuarios;
-
-        ModeloTablaUsuarios mu = (ModeloTablaUsuarios) tablaUsuarios.getModel();
-        usuarios = fa.consultarUsuarios(null, null, null);
-
-        mu.setFilas(usuarios);//Cada fila es un ejemplar
-        if (mu.getRowCount() > 0) {
-            tablaUsuarios.setRowSelectionInterval(0, 0);
-            btnAcceder.setEnabled(true);
-        } else {
-            btnAcceder.setEnabled(false);
-        }
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -491,10 +476,39 @@ public class VAdmin extends javax.swing.JFrame {
     private javax.swing.JTable tablaUsuarios;
     // End of variables declaration//GEN-END:variables
 
-    public void cargarDatos(String orden) {
+    public void cargarClases(String orden) {
         java.util.List<Clase> clases;
         ModeloTablaClases mu = (ModeloTablaClases) tablaClases.getModel();
-        clases = fa.mostrarClases(orden);
+        clases = fa.consultarClases(orden);
         mu.setFilas(clases);
+        tablaClases.setRowSelectionInterval(0, 0);
+
+    }
+
+    public void cargarBonos() {
+        java.util.List<Bono> bonos;
+        ModeloTablaBonos m = (ModeloTablaBonos) tablaBonos.getModel();
+        bonos = fa.consultarBonos(null, null, false);//Realizo una consulta de los bonos sin restricciones
+        m.setFilas(bonos);
+
+        if (m.getRowCount() > 0) {
+            tablaBonos.setRowSelectionInterval(0, 0);
+            btnInscribir.setEnabled(true);
+        } else {
+            btnInscribir.setEnabled(false);
+        }
+    }
+
+    public void cargarUsuarios() {
+        java.util.List<Usuario> usuarios;
+        ModeloTablaUsuarios m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
+        usuarios = fa.consultarUsuarios(null, null, null);//Realizo una consulta de los bonos sin restricciones
+        m.setFilas(usuarios);
+        if (m.getRowCount() > 0) {
+            tablaUsuarios.setRowSelectionInterval(0, 0);
+            btnAcceder.setEnabled(true);
+        } else {
+            btnAcceder.setEnabled(false);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class DAOClases extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
-    public java.util.List<Clase> mostrarClases(String orden) {
+    public java.util.List<Clase> consultarClases(String orden) {
         java.util.List<Clase> resultado = new java.util.ArrayList<Clase>();
 
         Connection con;

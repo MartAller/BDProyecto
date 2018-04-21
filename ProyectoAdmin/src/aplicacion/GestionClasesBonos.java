@@ -23,8 +23,8 @@ public class GestionClasesBonos {//Controlador de clases y bonos
     }
 
     ////////////////USUARIOS//////////////////
-    public java.util.List<Clase> mostrarClases(String orden) {
-        return fbd.mostrarClases(orden);
+    public java.util.List<Clase> consultarClases(String orden) {
+        return fbd.consultarClases(orden);
     }
 
     /////////////CLASES/////////////////

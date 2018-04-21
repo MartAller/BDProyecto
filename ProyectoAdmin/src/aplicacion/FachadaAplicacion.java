@@ -24,7 +24,6 @@ public class FachadaAplicacion {
         fbd = new baseDatos.FachadaBaseDatos(this);
         cc = new GestionClasesBonos(fgui, fbd);
         cu = new GestionUsuarios(fgui, fbd);
-        fgui.getVAd().cargarDatos(null);
     }
 
     /**
@@ -38,7 +37,6 @@ public class FachadaAplicacion {
         System.out.println("Hola33");
         System.out.println("version1");
         fa = new FachadaAplicacion();
-        //fgui.getVAd().cargarDatos(null);
         fa.iniciaInterfazAdmin();
     }
 
@@ -69,8 +67,8 @@ public class FachadaAplicacion {
     }
 
     /////////////CLASES//////////////////
-    public java.util.List<Clase> mostrarClases(String orden) {
-        return cc.mostrarClases(orden);
+    public java.util.List<Clase> consultarClases(String orden) {
+        return cc.consultarClases(orden);
     }
 
     public java.util.List<Clase> consultarClasesNuevoBono() {

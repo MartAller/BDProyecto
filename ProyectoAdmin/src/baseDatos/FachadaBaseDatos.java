@@ -88,8 +88,8 @@ public class FachadaBaseDatos {
     }
 /////////////CLASES//////////////////////
 
-    public java.util.List<Clase> mostrarClases(String orden) {
-        return daoClases.mostrarClases(orden);
+    public java.util.List<Clase> consultarClases(String orden) {
+        return daoClases.consultarClases(orden);
     }
 
     public java.util.List<Clase> consultarClasesNuevoBono() {
