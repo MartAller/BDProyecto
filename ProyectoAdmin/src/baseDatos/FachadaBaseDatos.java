@@ -101,12 +101,8 @@ public class FachadaBaseDatos {
         return daoClases.consultarClasesBono(idBono);
     }
 
-    public void actualizarClase(Clase clase) {
-        daoClases.actualizarClase(clase);
-    }
-
-    public void nuevaClase(Clase clase, String fecha) {
-        daoClases.nuevaClase(clase, fecha);
+    public void nuevaClase(Clase clase) {
+        daoClases.nuevaClase(clase);
     }
 
     //actividad

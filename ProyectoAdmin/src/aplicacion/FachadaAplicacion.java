@@ -36,7 +36,6 @@ public class FachadaAplicacion {
         System.out.println("Hola2222");
         System.out.println("Hola33");
         System.out.println("version1");
-        System.out.println("version2");
         fa = new FachadaAplicacion();
         fa.iniciaInterfazAdmin();
     }
@@ -78,16 +77,13 @@ public class FachadaAplicacion {
     public java.util.List<Clase> consultarClasesBono(Integer idBono) {
         return cc.consultarClasesBono(idBono);
     }
-    
-    public void actualizarClase(Clase clase){
-        cc.actualizarClase(clase);
+
+    public void nuevaClase(Clase clase) {
+        cc.nuevaClase(clase);
     }
-    
-    public java.util.ArrayList<Actividad> consultarActividades(){
+
+    public java.util.ArrayList<Actividad> consultarActividades() {
         return cc.consultarActividades();
-    }
-    public void nuevaClase(Clase clase, String fecha){
-        cc.nuevaClase(clase, fecha);
     }
 
     /////////////BONOS//////////////////
@@ -98,9 +94,9 @@ public class FachadaAplicacion {
     public void ventanaNuevoBono() {
         cc.ventanaNuevoBono();
     }
-    
-    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades, Clase clase) {
-        cc.ventanaNuevaClase(profesores, actividades, clase);
+
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
+        cc.ventanaNuevaClase(profesores, actividades);
     }
 
     public void insertarBono(Bono bono, java.util.List<Clase> clases) {

@@ -226,9 +226,9 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="opciones" min="-2" pref="102" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="nuevaClase_btn" min="-2" max="-2" attributes="0"/>
+                              <Component id="nueva_clase_btn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="editarClase_btn" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -246,8 +246,8 @@
                       <Component id="jScrollPane3" min="-2" pref="277" max="-2" attributes="0"/>
                       <EmptySpace pref="76" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="nuevaClase_btn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="editarClase_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nueva_clase_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="opciones" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -273,21 +273,18 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="nuevaClase_btn">
+            <Component class="javax.swing.JButton" name="nueva_clase_btn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nueva clase"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevaClase_btnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nueva_clase_btnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="editarClase_btn">
+            <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar clase"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarClase_btnActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="opciones">
               <Properties>
