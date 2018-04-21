@@ -6,6 +6,7 @@ package gui;
 
 import aplicacion.Actividad;
 import aplicacion.Usuario;
+import aplicacion.Clase;
 
 /**
  *
@@ -50,8 +51,8 @@ public class FachadaGui {
     }
 //////////////////CLASES////////////////////////
 
-    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
-        VClase vc = new VClase(vAd, true, fa, profesores, actividades);
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades, Clase clase) {
+        VClase vc = new VClase(vAd, true, fa, profesores, actividades, clase);
         vc.setVisible(true);
     }
 

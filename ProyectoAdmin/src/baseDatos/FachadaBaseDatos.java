@@ -100,6 +100,9 @@ public class FachadaBaseDatos {
         daoClases.nuevaClase(clase, fecha);
     }
     
+    public void actualizarClase(Clase clase){
+        daoClases.actualizarClase(clase);
+    }
     //actividad
     public java.util.ArrayList<Actividad> consultarActividades(){
         return daoClases.consultarActividades();

@@ -78,6 +78,10 @@ public class FachadaAplicacion {
         cc.nuevaClase(clase, fecha);
     }
     
+    public void actualizarClase(Clase clase){
+        cc.actualizarClase(clase);
+    }
+    
     public java.util.ArrayList<Actividad> consultarActividades(){
         return cc.consultarActividades();
     }
@@ -91,8 +95,8 @@ public class FachadaAplicacion {
         cc.ventanaNuevoBono();
     }
     
-    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
-        cc.ventanaNuevaClase(profesores, actividades);
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades, Clase clase) {
+        cc.ventanaNuevaClase(profesores, actividades, clase);
     }
     
     public void insertarBono(Bono bono, java.util.List<Clase> clases){

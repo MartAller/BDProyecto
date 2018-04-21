@@ -36,6 +36,10 @@ public class GestionClasesBonos {//Controlador de clases y bonos
         fbd.nuevaClase(clase, fecha);
     }
     
+    public void actualizarClase(Clase clase){
+        fbd.actualizarClase(clase);
+    }
+    
     //actividad
     public java.util.ArrayList<Actividad> consultarActividades(){
         return fbd.consultarActividades();
@@ -54,8 +58,8 @@ public class GestionClasesBonos {//Controlador de clases y bonos
         fgui.ventanaInscripcionBono(bono);
     }
     
-    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
-        fgui.ventanaNuevaClase(profesores, actividades);
+    public void ventanaNuevaClase(java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades, Clase clase) {
+        fgui.ventanaNuevaClase(profesores, actividades, clase);
     }
     
     public void insertarBono(Bono bono, java.util.List<Clase> clases){

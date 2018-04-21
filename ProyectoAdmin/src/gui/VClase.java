@@ -17,14 +17,19 @@ public class VClase extends javax.swing.JDialog {
     
     private aplicacion.FachadaAplicacion fa;
     private VAdmin padre;
+    private boolean editar;
     /**
      * Creates new form VClase
      */
-    public VClase(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades) {
+    public VClase(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, java.util.ArrayList<Usuario> profesores, java.util.ArrayList<Actividad> actividades, Clase clase) {
         super(parent, modal);
         this.fa = fa;
+        this.padre=(VAdmin)parent;
+        this.editar=(clase!=null);
         initComponents();
         cargarProfesoresActividades(profesores, actividades);
+        if(editar)
+            cargarClase(clase);
     }
 
     /**
@@ -256,9 +261,15 @@ public class VClase extends javax.swing.JDialog {
         // TODO add your handling code here:
         //java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MMM-dd");
         //java.util.Date date=new java.util.Date(fecha.getText());
-        //fa.nuevaClase(new Clase(new Integer(id_clase.getText()), null, hora_inicio.getText(), new Integer(numero_horas.getText()),
-        //new Integer(plazas.getText()), null, profesores.getSelectedItem().toString(), actividades.getSelectedItem().toString(), null), fecha.getText());
-        vaciarCampos();
+        Clase clase=new Clase(new Integer(id_clase.getText()), null, hora_inicio.getText(), new Integer(numero_horas.getText()),
+        new Integer(plazas.getText()), null, 0, profesores.getSelectedItem().toString(), actividades.getSelectedItem().toString(), null);
+        if(!editar){
+            fa.nuevaClase(clase, fecha.getText());
+            vaciarCampos();
+        } else{
+            fa.actualizarClase(clase);
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
    
@@ -299,6 +310,18 @@ public class VClase extends javax.swing.JDialog {
         numero_horas.setText("");
         profesores.setSelectedIndex(0);
         actividades.setSelectedIndex(0);
+    }
+    
+    private void cargarClase(Clase clase){
+        id_clase.setText(""+clase.getId_clase());
+        plazas.setText(""+clase.getPlazas());
+        fecha.setText(""+clase.getFecha());
+        hora_inicio.setText(""+clase.getHoraInicio());
+        numero_horas.setText(""+clase.getnHoras());
+        this.profesores.setSelectedItem(clase.getProfesor());
+        this.actividades.setSelectedItem(clase.getActividad());
+        //this.profesores.addItem(clase.getProfesor());
+        //this.actividades.addItem(clase.getActividad());
     }
 
 }
